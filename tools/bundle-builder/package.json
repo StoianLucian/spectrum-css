@@ -17,8 +17,7 @@
     "@spectrum-css/expressvars": "^3.0.9",
     "@spectrum-css/tokens": "^13.1.2",
     "@spectrum-css/ui-icons": "^1.1.2",
-    "@spectrum-css/vars": "^9.0.8",
-    "npm-registry-fetch": "^14.0.5"
+    "@spectrum-css/vars": "^9.0.8"
   },
   "peerDependencies": {
     "@spectrum-css/expressvars": ">=3",
@@ -31,20 +30,19 @@
     }
   },
   "devDependencies": {
+    "@spectrum-css/documentation": "^0.0.1-alpha.0",
     "browser-sync": "^2.26.14",
     "colors": "^1.4.0",
     "dependency-solver": "^1.0.6",
     "gulp": "^4.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-conventional-changelog": "^2.0.19",
     "gulp-pug": "^4.0.1",
     "gulp-rename": "^1.4.0",
     "gulplog": "^1.0.0",
-    "inquirer": "^9.2.10",
     "js-yaml": "^4.1.0",
-    "loadicons": "^1.0.0",
+    "lunr": "^2.3.6",
+    "npm-registry-fetch": "^14.0.5",
     "replace-ext": "^1.0.0",
-    "semver": "^7.5.1",
     "through2": "^3.0.1"
   }
 }

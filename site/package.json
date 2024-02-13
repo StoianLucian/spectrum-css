@@ -1,0 +1,31 @@
+{
+  "name": "@spectrum-css/documentation",
+  "version": "0.0.1-alpha.0",
+  "description": "The Spectrum CSS documentation site builder",
+  "license": "Apache-2.0",
+  "author": "Adobe",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adobe/spectrum-css.git",
+    "directory": "site"
+  },
+  "bugs": {
+    "url": "https://github.com/adobe/spectrum-css/issues"
+  },
+  "dependencies": {
+    "@spectrum-css/bundle-builder": "^6.3.2",
+    "@spectrum-css/component-builder": "^6.0.2",
+    "@spectrum-css/component-builder-simple": "^5.0.2",
+    "@spectrum-css/expressvars": "^3.0.9",
+    "@spectrum-css/tokens": "^13.1.2",
+    "loadicons": "^1.0.0",
+    "lunr": "^2.3.6",
+    "prismjs": "^1.23.0"
+  },
+  "peerDependencies": {
+    "@spectrum-css/tokens": ">=13"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0"
+  }
+}

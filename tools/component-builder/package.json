@@ -11,6 +11,7 @@
   "bugs": {
     "url": "https://github.com/adobe/spectrum-css/issues"
   },
+  "main": "index.js",
   "dependencies": {
     "@spectrum-css/tokens": "^13.1.2",
     "@spectrum-css/vars": "^9.0.8",

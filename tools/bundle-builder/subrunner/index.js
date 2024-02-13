@@ -13,15 +13,11 @@ governing permissions and limitations under the License.
 const fs = require("fs");
 const path = require("path");
 
-const colors = require("colors");
+require("colors");
+
 const logger = require("gulplog");
 const dirs = require("../lib/dirs");
 const depUtils = require("../lib/depUtils");
-
-function chdir(dir) {
-	process.chdir(dir);
-	logger.debug(`Working directory changed to ${dir.magenta}`);
-}
 
 /*
   Run the specified gulp task for the given package
@@ -30,48 +26,21 @@ function runComponentTask(packageDir, task, callback) {
 	// Drop org
 	packageName = packageDir.split("/").pop();
 
-	var gulpfile = path.join(packageDir, "gulpfile.js");
+	// Determine which build package to use
+	const { devDependencies = {} } = require(path.join(packageDir, "package.json"));
 
-	if (!fs.existsSync(gulpfile)) {
-		logger.warn(`No gulpfile found for ${packageName.yellow}`);
-		callback();
-		return;
-	}
-
-	let cwd = process.cwd();
-
-	chdir(packageDir);
-
-	var tasks = require(gulpfile);
-
-	if (tasks[task]) {
-		logger.warn(`Starting '${packageName.yellow}:${task.yellow}'...`);
-
-		tasks[task](function (err) {
-			chdir(cwd);
-
-			if (err) {
-				logger.error(
-					`Error running '${packageName.yellow}:${task.yellow}': ${err}`
-				);
-
-				callback(err);
-			} else {
-				logger.warn(`Finished '${packageName.yellow}:${task.yellow}'`);
-
-				callback();
-			}
-		});
+	let builder;
+	if (devDependencies["@spectrum-css/component-builder"]) {
+		builder = require("@spectrum-css/component-builder");
 	} else {
-		var err = new Error(
-			`Task '${packageName.yellow}:${task.yellow}' not found!`
-		);
-		logger.error(err);
-
-		chdir(cwd);
-
-		callback(err);
+		builder = require("@spectrum-css/component-builder-simple");
 	}
+
+	if (!fs.existsSync(builder)) return callback();
+
+	if (builder[task]) {
+		return builder[task](packageDir).then(callback);
+	} else return callback(new Error(`Task '${packageName.yellow}:${task.yellow}' not found!`));
 }
 
 /*

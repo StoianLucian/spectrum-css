@@ -10,15 +10,54 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const gulp = require("gulp");
-const logger = require("gulplog");
-const browserSync = require("browser-sync");
 const path = require("path");
-const dirs = require("../lib/dirs");
 
-const docs = require("../docs");
+const gulp = require("gulp");
+const rename = require("gulp-rename");
+const logger = require("gulplog");
+
+const browserSync = require("browser-sync");
+
+const docs = require("@spectrum-css/documentation/index.js");
+
+const dirs = require("../lib/dirs");
 const subrunner = require("../subrunner");
-const bundleBuilder = require("../index.js");
+
+function getPackageFromPath(filePath) {
+	return filePath.match(`${dirs.components}\/(.*?)\/`)[1];
+}
+
+// run buildLite on a selected set of packages that depend on commons
+// yay: faster than 'rebuild everything' approach
+// boo: must add new packages here as commons grows
+function buildDepenenciesOfCommons() {
+	const dependentComponents = [
+		`${dirs.components}/actionbutton`,
+		`${dirs.components}/button`,
+		`${dirs.components}/clearbutton`,
+		`${dirs.components}/closebutton`,
+		`${dirs.components}/infieldbutton`,
+		`${dirs.components}/logicbutton`,
+		`${dirs.components}/picker`,
+		`${dirs.components}/pickerbutton`,
+	];
+	return subrunner.runTaskOnPackages("build", dependentComponents);
+}
+
+function copyPackages() {
+	return gulp
+		.src([
+			`${dirs.components}/*/package.json`,
+			`${dirs.components}/*/dist/**`,
+			`!${dirs.components}/*/dist/docs/**`,
+		])
+		.pipe(
+			rename(function (file) {
+				file.dirname = file.dirname.replace("/dist", "");
+			})
+		)
+		.pipe(gulp.dest("dist/components/"));
+}
 
 function serve() {
 	let PORT = 3000;
@@ -41,10 +80,6 @@ function serve() {
 		open: process.env.BROWSERSYNC_OPEN === "true" ? true : false,
 		port: PORT,
 	});
-}
-
-function getPackageFromPath(filePath) {
-	return filePath.match(`${dirs.components}\/(.*?)\/`)[1];
 }
 
 /*
@@ -124,22 +159,22 @@ function reload(cb) {
 }
 
 function watchSite() {
-	gulp.watch(`${dirs.site}/*.pug`, gulp.series(docs.buildSite_pages, reload));
+	gulp.watch(`${dirs.site}/*.pug`, gulp.series(docs.buildDocs_pages, reload));
 
 	gulp.watch(
 		`${dirs.site}/includes/*.pug`,
-		gulp.series(gulp.parallel(docs.buildSite_html, docs.buildDocs), reload)
+		gulp.series(docs.build, reload)
 	);
 
 	gulp.watch(
 		[`${dirs.site}/templates/siteComponent.pug`, `${dirs.site}/util.js`],
-		gulp.series(gulp.parallel(docs.buildDocs), reload)
+		gulp.series(docs.build, reload)
 	);
 
 	gulp.watch(
 		[`${dirs.site}/resources/css/*.css`, `${dirs.site}/resources/js/*.js`],
 		gulp.series(
-			docs.buildSite_copyFreshResources,
+			docs.buildDocs_copyFreshResources,
 			function injectSiteResources() {
 				return gulp
 					.src(["dist/css/**/*.css", "dist/js/**/*.js"])
@@ -153,8 +188,8 @@ function watchCommons() {
 	gulp.watch(
 		[`${dirs.components}/commons/*.css`],
 		gulp.series(
-			bundleBuilder.buildDepenenciesOfCommons,
-			bundleBuilder.copyPackages,
+			buildDepenenciesOfCommons,
+			copyPackages,
 			reload
 		)
 	);
@@ -167,12 +202,12 @@ function watch() {
 
 	watchWithinPackages(
 		`${dirs.components}/*/{index,skin}.css`,
-		"buildMedium",
+		"build",
 		"*.css"
 	);
 	watchWithinPackages(
 		`${dirs.components}/*/themes/{spectrum,express}.css`,
-		"buildMedium",
+		"build",
 		"*.css"
 	);
 
@@ -180,20 +215,14 @@ function watch() {
 		[
 			`${dirs.components}/*/metadata/*.yml`,
 		],
-		(changedFile, package, done) => {
+		(_, package, done) => {
+			const packageDir = path.dirname(require.resolve(`@spectrum-css/${package}/package.json`));
 			// Do this as gulp tasks to avoid premature stream termination
 			try {
-				let result = gulp.series(
+				gulp.series(
 					// Get data first so nav builds
-					function buildSite_getData() {
-						logger.debug(`Building nav data for ${package}`);
-						return docs.buildSite_getData();
-					},
-					function buildDocs_forDep() {
-						logger.debug(`Building docs for ${package}`);
-						let packageDir = path.dirname(require.resolve(`@spectrum-css/${package}/package.json`));
-						return docs.buildDocs_forDep(packageDir);
-					}
+					docs.buildDocs_getData,
+					buildDocs_forDep = () => docs.buildDocs_forDep(packageDir),
 				)();
 				// this catches yaml parsing errors
 				// should stop the series from running
