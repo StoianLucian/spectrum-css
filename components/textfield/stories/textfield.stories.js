@@ -1,11 +1,11 @@
-// Import the component markup template
-import { Template } from "./template";
 import { html } from "lit";
+import { Template } from "./template";
 
+/**
+ * Text fields are text boxes that allow users to input custom text entries with a keyboard. Various decorations can be displayed around the field to communicate the entry requirements.
+ */
 export default {
 	title: "Components/Text field",
-	description:
-		"Text fields are text boxes that allow users to input custom text entries with a keyboard. Various decorations can be displayed around the field to communicate the entry requirements.",
 	component: "TextField",
 	argTypes: {
 		isValid: {
@@ -188,11 +188,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("textfield")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

@@ -1,5 +1,25 @@
 import { Template } from "@spectrum-css/quickaction/stories/template.js";
 
+import { hrefTo } from '@storybook/addon-links';
+
+import "@spectrum-css/vars/dist/spectrum-large.css";
+import "@spectrum-css/vars/dist/spectrum-medium.css";
+
+import "@spectrum-css/vars/dist/spectrum-dark.css";
+import "@spectrum-css/vars/dist/spectrum-darkest.css";
+import "@spectrum-css/vars/dist/spectrum-light.css";
+
+import "@spectrum-css/vars/dist/spectrum-global.css";
+
+import "@spectrum-css/expressvars/dist/spectrum-large.css";
+import "@spectrum-css/expressvars/dist/spectrum-medium.css";
+
+import "@spectrum-css/expressvars/dist/spectrum-dark.css";
+import "@spectrum-css/expressvars/dist/spectrum-darkest.css";
+import "@spectrum-css/expressvars/dist/spectrum-light.css";
+
+import "@spectrum-css/expressvars/dist/spectrum-global.css";
+
 export default {
 	title: "Deprecated/Quick actions",
 	component: "QuickAction",
@@ -57,10 +77,21 @@ export default {
 		actions: {
 			handles: [],
 		},
-		status: {
-			type: "deprecated"
-		},
 		chromatic: { disable: true },
+		badgesConfig: {
+			deprecated: {
+				tooltip: {
+					desc: "Use an action bar to allow users to perform actions on either a single or multiple items at the same time, instead.",
+					links: [
+						{
+							title: 'Action bar',
+							href: await hrefTo('Components/Action bar'),
+						}
+					]
+				}
+			},
+		},
+		badges: ["deprecated"],
 	},
 };
 

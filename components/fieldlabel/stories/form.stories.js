@@ -1,8 +1,10 @@
 import { Template } from "./form-template";
 
+/**
+ * The form component is used for aligning multiple inputs and field groups within a form.
+ */
 export default {
 	title: "Components/Form",
-	description: "The Form component is used for aligning multiple inputs and field groups within a form.",
 	component: "Form",
 	argTypes: {
 		labelsAbove: {
@@ -22,11 +24,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("fieldlabel")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

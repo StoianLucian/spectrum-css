@@ -7,6 +7,7 @@ const componentPkgs = readdirSync(componentsPath, {
 })
 	.filter((dirent) => dirent.isDirectory())
 	.map((dirent) => dirent.name);
+
 module.exports = {
 	stories: [
 		"../components/*/stories/*.stories.js",
@@ -40,7 +41,11 @@ module.exports = {
 		// https://www.chromatic.com/docs/visual-testing-addon/
 		"@chromaui/addon-visual-tests",
 		// https://storybook.js.org/addons/@storybook/addon-designs/
-    	"@storybook/addon-designs",
+		"@storybook/addon-designs",
+		// https://storybook.js.org/addons/@storybook/addon-links
+		"@storybook/addon-links",
+		// https://storybook.js.org/addons/@geometricpanda/storybook-addon-badges/
+		"@geometricpanda/storybook-addon-badges",
 	],
 	core: {
 		disableTelemetry: true,
@@ -58,6 +63,13 @@ module.exports = {
 			}
 			return false;
 		}),
+		VERSIONS: componentPkgs.reduce((currObj, dir) => {
+			const { version } = require(
+				`@spectrum-css/${dir}/package.json`
+			) ?? {};
+			currObj[dir] = version;
+			return currObj;
+		}, {}),
 	},
 	webpackFinal: function (config) {
 		// Removing the global alias as it conflicts with the global npm pkg
@@ -170,13 +182,6 @@ module.exports = {
 		/* Builds stories.json to help with on-demand loading */
 		buildStoriesJson: true,
 	},
-	// refs: {
-	//   'swc': {
-	//     title: 'Spectrum Web Components',
-	//     url: 'https://opensource.adobe.com/spectrum-web-components/storybook/',
-	//     expanded: false,
-	//   },
-	// },
 	docs: {
 		autodocs: true, // see below for alternatives
 		defaultName: "Docs", // set to change the name of generated docs entries

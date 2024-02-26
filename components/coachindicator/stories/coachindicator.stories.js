@@ -3,14 +3,13 @@ import { html } from "lit";
 import { Template } from "./template";
 
 
+/**
+ * The coach indicator component can be used to bring added attention to specific parts of a page.
+ */
 export default {
 	title: "components/Coach indicator",
-	description:
-		"The coach indicator component can be used to bring added attention to specific parts of a page.",
 	component: "CoachIndicator",
 	argTypes: {
-		// @todo: remove the disabling of reducedMotion once this global control is enabled, coach indicator does have reduced motion styling.
-		reducedMotion: { table: { disable: true } },
 		isQuiet: {
 			name: "Quiet styling",
 			type: { name: "boolean" },
@@ -39,11 +38,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("coachindicator")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

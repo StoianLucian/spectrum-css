@@ -1,4 +1,3 @@
-// Import the component markup template
 import { html } from "lit";
 import { styleMap } from "lit/directives/style-map.js";
 import { when } from "lit/directives/when.js";
@@ -22,10 +21,11 @@ const uiIconNameOptions = uiIconsWithDirections.map((iconName) => {
 	return uiIconSizes[baseIconName]?.map(sizeNum => iconName + sizeNum) ?? [];
 }).flat();
 
+/**
+ * The icons component contains all UI icons used for components as well as the CSS for UI and workflow icons.
+ */
 export default {
 	title: "Components/Icon",
-	description:
-		"The icons component contains all UI icons used for components as well as the CSS for UI and workflow icons.",
 	component: "Icon",
 	argTypes: {
 		/* Turn off express theme for icon preview b/c they use a separate icon set */
@@ -92,13 +92,6 @@ export default {
 		setName: "workflow",
 		iconName: "ABC",
 		size: "xl",
-	},
-	parameters: {
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("icon")
-				? "migrated"
-				: undefined,
-		},
 	},
 };
 

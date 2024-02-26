@@ -1,10 +1,9 @@
-// Import the component markup template
-import { Template } from "./template";
 import {
-  argTypes, 
-  verticalProps, 
+  argTypes,
+  verticalProps,
   verticalWithIconsProps,
 } from "./index.js";
+import { Template } from "./template";
 
 export default {
   title: "Components/Tabs/Vertical/Quiet/Compact",
@@ -22,9 +21,6 @@ export default {
     actions: {
       handles: []
     },
-    status: {
-      type: process.env.MIGRATED_PACKAGES.includes('tabs') ? 'migrated' : undefined
-    }
   }
 };
 
@@ -34,7 +30,7 @@ Default.args = {
   selectorStyle: {
     "height": "32px",
     "top": "0"
-  }, 
+  },
 };
 
 export const WithIcon = Template.bind({});
@@ -43,7 +39,7 @@ WithIcon.args = {
   selectorStyle: {
     "height": "32px",
     "top": "0"
-  }, 
+  },
 };
 
 export const CompactEmphasized = Template.bind({});
@@ -53,6 +49,5 @@ CompactEmphasized.args = {
   selectorStyle: {
     "height": "32px",
     "top": "0"
-  }, 
+  },
 };
-

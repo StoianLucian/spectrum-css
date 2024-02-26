@@ -1,9 +1,10 @@
 import { Template } from "./template";
 
+/**
+ * Alert dialogs display important information that users need to acknowledge. They appear over the interface and block further interactions until an action is selected.
+ */
 export default {
   title: "Components/Alert dialog",
-  description:
-    "Alert dialogs display important information that users need to acknowledge. They appear over the interface and block further interactions until an action is selected.",
   component: "AlertDialog",
   argTypes: {
     heading: {
@@ -42,11 +43,6 @@ export default {
   parameters: {
     actions: {
       handles: ["click .spectrum-AlertDialog button"],
-    },
-    status: {
-      type: process.env.MIGRATED_PACKAGES.includes("alertdialog")
-        ? "migrated"
-        : undefined,
     },
   },
 };

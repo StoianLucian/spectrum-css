@@ -1,11 +1,12 @@
-// Import the component markup template
 import { Template } from "./template";
 
 import { default as IconStories } from "@spectrum-css/icon/stories/icon.stories.js";
 
+/**
+ * The In-field button component is a button used inside a textfield.
+ */
 export default {
   title: "Components/In-field button",
-  description: "The In-field button component is a button used inside a textfield",
   component: "Infieldbutton",
   argTypes: {
     size: {
@@ -63,9 +64,6 @@ export default {
     actions: {
       handles: []
     },
-    status: {
-      type: process.env.MIGRATED_PACKAGES.includes('infieldbutton') ? 'migrated' : undefined
-    }
   }
 };
 
@@ -86,4 +84,3 @@ export const Disabled = Template.bind({});
 Disabled.args = {
   isDisabled: true
 };
-

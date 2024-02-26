@@ -1,9 +1,30 @@
 import { Template } from "@spectrum-css/splitbutton/stories/template.js";
 
+import { hrefTo } from '@storybook/addon-links';
+
+import "@spectrum-css/vars/dist/spectrum-large.css";
+import "@spectrum-css/vars/dist/spectrum-medium.css";
+
+import "@spectrum-css/vars/dist/spectrum-dark.css";
+import "@spectrum-css/vars/dist/spectrum-darkest.css";
+import "@spectrum-css/vars/dist/spectrum-light.css";
+
+import "@spectrum-css/vars/dist/spectrum-global.css";
+
+import "@spectrum-css/expressvars/dist/spectrum-large.css";
+import "@spectrum-css/expressvars/dist/spectrum-medium.css";
+
+import "@spectrum-css/expressvars/dist/spectrum-dark.css";
+import "@spectrum-css/expressvars/dist/spectrum-darkest.css";
+import "@spectrum-css/expressvars/dist/spectrum-light.css";
+
+import "@spectrum-css/expressvars/dist/spectrum-global.css";
+
+/**
+ * A split button surfaces an immediately invokable action via it's main button, as well as a list of alternative actions in its toggle-able menu overlay.
+*/
 export default {
 	title: "Deprecated/Split button",
-	description:
-		"A split button surfaces an immediately invokable action via it's main button, as well as a list of alternative actions in its toggle-able menu overlay.",
 	component: "SplitButton",
 	argTypes: {
 		size: {
@@ -55,9 +76,24 @@ export default {
 			handles: [],
 		},
 		chromatic: { disable: true },
-		status: {
-			type: "deprecated"
+		badgesConfig: {
+			deprecated: {
+				tooltip: {
+					desc: "Use a button group to show any additional actions related to the most critical action. Reference Spectrum documentation for more information.",
+					links: [
+						{
+							title: 'Button group',
+							href: await hrefTo('Components/Button group'),
+						},
+						{
+							title: 'Spectrum documentation',
+							href: "https://spectrum.corp.adobe.com/page/button-group/#Use-a-button-group-to-show-additional-actions",
+						}
+					]
+				}
+			},
 		},
+		badges: ["deprecated"],
 	},
 };
 

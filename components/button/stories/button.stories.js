@@ -7,10 +7,11 @@ import { default as IconStories } from "@spectrum-css/icon/stories/icon.stories.
 import { Template as Typography } from "@spectrum-css/typography/stories/template.js";
 import { Template } from "./template";
 
+/**
+ * Buttons allow users to perform an action or to navigate to another page. They have multiple styles for various needs, and are ideal for calling attention to where a user needs to do something in order to move forward in a flow.
+ */
 export default {
 	title: "Components/Button",
-	description:
-		"Buttons allow users to perform an action or to navigate to another page. They have multiple styles for various needs, and are ideal for calling attention to where a user needs to do something in order to move forward in a flow.",
 	component: "Button",
 	argTypes: {
 		size: {
@@ -100,7 +101,7 @@ export default {
 		    name: "Layout",
 		    description: "How the buttons align in the preview (Storybook only).",
 		    type: { name: "string" },
-			table: { 
+			table: {
 			    type: { summary: "string" },
 			    category: "Advanced"
 			},
@@ -123,15 +124,10 @@ export default {
 		actions: {
 			handles: ["click .spectrum-Button"],
 		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("button")
-				? "migrated"
-				: undefined,
-		},
 	},
 };
 
-/**
+/*
  * Optional wrapper for each button used within other templates, to assist with the "stacked"
  * layout and the testing of wrapping text.
  */
@@ -143,7 +139,7 @@ const ButtonWrap = (layout, content) => {
 	return layout === "stacked" ? html`<div style=${styleMap(buttonWrapStyles)}>${content}</div>` : content;
 };
 
-/**
+/*
  * Multiple button variations displayed in one story template.
  * Used as the base template for the stories.
  */
@@ -260,7 +256,7 @@ const ButtonsWithForcedColors = ({
 	</div>
 `;
 
-/**
+/*
  * Wrapping story template, displaying some additional variants for Chromatic.
  */
 const WrappingTemplate = ({layout, ...args}) => {

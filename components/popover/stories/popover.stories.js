@@ -1,16 +1,16 @@
 import { userEvent, within } from '@storybook/testing-library';
 import { html } from "lit";
 
-// Import the component markup template
 import { Template } from "./template";
 
 import { Template as ActionButton } from "@spectrum-css/actionbutton/stories/template.js";
 import { Template as Menu } from "@spectrum-css/menu/stories/template.js";
 
+/**
+ * A popover is used to display transient content (menus, options, additional actions etc.) and appears when clicking/tapping on a source (tools, buttons, etc.). It stands out via its visual style (stroke and drop shadow) and floats on top of the rest of the interface.
+ */
 export default {
 	title: "Components/Popover",
-	description:
-		"A popover is used to display transient content (menus, options, additional actions etc.) and appears when clicking/tapping on a source (tools, buttons, etc.). It stands out via its visual style (stroke and drop shadow) and floats on top of the rest of the interface.",
 	component: "Popover",
 	argTypes: {
 		trigger: { table: { disable: true } },
@@ -71,11 +71,6 @@ export default {
 		layout: 'centered',
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("popover")
-				? "migrated"
-				: undefined,
 		},
 		chromatic: { delay: 2000 },
 	},
@@ -232,6 +227,8 @@ Nested.decorators = [(Story) => html`<div style="padding: 1em;">${Story().outerH
 
 Nested.play = async ({ canvasElement }) => {
 	const canvas = within(canvasElement);
-  await userEvent.click(canvas.getAllByRole('button')[0]);
-	await userEvent.click(canvas.getAllByRole('button')[1]);
+	const buttons = canvas.getAllByRole('button');
+	buttons.forEach(async (button) => {
+		await userEvent.click(button);
+	});
 };

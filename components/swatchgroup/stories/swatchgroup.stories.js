@@ -1,11 +1,12 @@
-// Import the component markup template
 import { Template } from "./template";
 
 import { default as Swatch } from "@spectrum-css/swatch/stories/swatch.stories.js";
 
+/**
+ * The Swatch group component is a collection of swatches.
+ */
 export default {
 	title: "Components/Swatch group",
-	description: "The Swatch group component is a collection of swatches.",
 	component: "Swatchgroup",
 	argTypes: {
 		...Swatch.argTypes,
@@ -61,11 +62,6 @@ export default {
 			handles: [
 				...Swatch.parameters?.actions?.handles ?? [],
 			],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("swatchgroup")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

@@ -1,9 +1,10 @@
-// Import the component markup template
 import { Template } from "./template";
 
+/**
+ * A button used to close or dismiss components.
+ */
 export default {
 	title: "Components/Close button",
-	description: "A button used to close or dismiss components",
 	component: "CloseButton",
 	argTypes: {
 		size: {
@@ -44,11 +45,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: ["click .spectrum-CloseButton"],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("closebutton")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

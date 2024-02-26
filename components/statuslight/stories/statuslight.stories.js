@@ -3,8 +3,7 @@ import { Template } from "./template";
 
 export default {
 	title: "Components/Status light",
-	description: "The Status light component is...",
-	component: "Statuslight",
+	component: "StatusLight",
 	argTypes: {
 		size: {
 			name: "Size",
@@ -66,11 +65,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("statuslight")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

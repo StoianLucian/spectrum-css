@@ -1,11 +1,11 @@
-// Import the component markup template
 import { html } from "lit";
 import { Template } from "./template";
 
+/**
+ * Checkboxes allow users to select multiple items from a list of individual items, or mark one individual item as selected.
+ */
 export default {
 	title: "Components/Checkbox",
-	description:
-		"Checkboxes allow users to select multiple items from a list of individual items, or mark one individual item as selected.",
 	component: "Checkbox",
 	argTypes: {
 		size: {
@@ -96,11 +96,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: ['click input[type="checkbox"]'],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("checkbox")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

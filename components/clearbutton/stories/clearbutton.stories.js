@@ -2,9 +2,11 @@ import { html } from "lit";
 
 import { Template } from "./template";
 
+/**
+ * The clear button component is and in-field button used in search and tag.
+ */
 export default {
 	title: "Components/Clear button",
-	description: "The clear button component is and in-field button used in Search and Tag",
 	component: "ClearButton",
 	argTypes: {
 		size: {
@@ -36,11 +38,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("clearbutton")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

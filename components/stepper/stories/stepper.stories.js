@@ -1,10 +1,11 @@
 import { html } from "lit";
 import { Template } from "./template";
 
+/**
+ * A stepper can be used to increment or decrement a value by a specified amount via an up/down button. An input field displays the current value.
+ */
 export default {
 	title: "Components/Stepper",
-	description:
-		"A stepper can be used to increment or decrement a value by a specified amount via an up/down button. An input field displays the current value.",
 	component: "Stepper",
 	argTypes: {
 		size: {
@@ -85,11 +86,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("stepper")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

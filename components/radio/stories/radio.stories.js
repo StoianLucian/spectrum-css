@@ -1,10 +1,11 @@
 import { html } from "lit";
 import { Template } from "./template";
 
+/**
+ * A radio selector allow users to select a single option from a list of mutually exclusive options. All possible options are exposed up front for users to compare.
+ */
 export default {
 	title: "Components/Radio",
-	description:
-		"A radio selector allow users to select a single option from a list of mutually exclusive options. All possible options are exposed up front for users to compare.",
 	component: "Radio",
 	argTypes: {
 		size: {
@@ -85,11 +86,6 @@ export default {
 		actions: {
 			handles: ['click input[type="radio"]'],
 
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("radio")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

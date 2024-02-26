@@ -1,9 +1,10 @@
-import { argTypes, ActionButtons } from "./index";
+import { ActionButtons, argTypes } from "./index";
 
+/**
+ * The action button component represents an action a user can take.
+ */
 export default {
 	title: "Components/Action button",
-	description:
-		"The action button component represents an action a user can take.",
 	component: "ActionButton",
 	argTypes: argTypes,
 	args: {
@@ -18,10 +19,9 @@ export default {
 		actions: {
 			handles: ["click .spectrum-ActionButton:not([disabled])"],
 		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("actionbutton")
-				? "migrated"
-				: undefined,
+		design: {
+			type: "figma",
+			url: "https://www.figma.com/file/MPtRIVRzPp2VHiEplwXL2X/S-%2F-Desktop?type=design&node-id=8797%3A8785&mode=design&t=DBHnFzHwPDzCjf83-1",
 		},
 	},
 };

@@ -41,13 +41,6 @@ export default {
 		preset: "image",
 		image: "example-ava.png",
 	},
-	parameters: {
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("asset")
-				? "migrated"
-				: "legacy",
-		},
-	},
 };
 
 const AssetGroup = (args) => html`

@@ -1,10 +1,10 @@
-// Import the component markup template
 import { Template } from "./template";
 
+/**
+ * Tooltips show contextual help or information about specific components when a user hovers or focuses on them.
+ */
 export default {
 	title: "Components/Tooltip",
-	description:
-		"Tooltips show contextual help or information about specific components when a user hovers or focuses on them.",
 	component: "Tooltip",
 	argTypes: {
 		label: {
@@ -101,11 +101,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("tooltip")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

@@ -1,10 +1,8 @@
-// Import the component markup template
 import { default as Radio } from "@spectrum-css/radio/stories/radio.stories.js";
 import { Template } from "./template";
 
 export default {
 	title: "Components/Field group",
-	description: "The Field group component is...",
 	component: "Fieldgroup",
 	argTypes: {
 		layout: {
@@ -46,11 +44,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [...Radio.parameters.actions.handles],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("fieldgroup")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

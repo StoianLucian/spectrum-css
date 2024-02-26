@@ -1,11 +1,12 @@
-// Import the component markup template
 import { Template } from "./template";
 
 import { default as Icon } from "@spectrum-css/icon/stories/icon.stories.js";
 
+/**
+ * The Picker button component is used as a dropdown trigger. See Combobox.
+ */
 export default {
 	title: "Components/Picker button",
-	description: "The Picker button component is used as a dropdown trigger. See Combobox.",
 	component: "Pickerbutton",
 	argTypes: {
 		size: {
@@ -116,11 +117,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("pickerbutton")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

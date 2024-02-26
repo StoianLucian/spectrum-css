@@ -1,10 +1,10 @@
-// Import the component markup template
 import { Template } from "./template";
 
+/**
+ * The typical usage of a treeview involves nesting a .spectrum-Treeview element within the .spectrum-TreeView-item parent element.
+ */
 export default {
 	title: "Components/Tree view",
-	description:
-		"The typical usage of a treeview involves nesting a .spectrum-Treeview element within the .spectrum-TreeView-item parent element.",
 	component: "Treeview",
 	argTypes: {
 		items: { table: { disable: true } },
@@ -50,10 +50,9 @@ export default {
 		actions: {
 			handles: ["click .spectrum-TreeView-itemLink"],
 		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("treeview")
-				? "migrated"
-				: undefined,
+		design: {
+			type: "figma",
+			url: "https://www.figma.com/file/MPtRIVRzPp2VHiEplwXL2X/S-%2F-Desktop?type=design&node-id=14962%3A1386&mode=design&t=DBHnFzHwPDzCjf83-1",
 		},
 	},
 };

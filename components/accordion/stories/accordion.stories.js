@@ -3,10 +3,11 @@ import { when } from "lit/directives/when.js";
 
 import { Template } from "./template";
 
+/**
+ * The accordion element contains a list of items that can be expanded or collapsed to reveal additional content or information associated with each item. There can be zero expanded items, exactly one expanded item, or more than one item expanded at a time, depending on the configuration. This list of items is defined by child accordion item elements.
+ */
 export default {
 	title: "Components/Accordion",
-	description:
-		"The accordion element contains a list of items that can be expanded or collapsed to reveal additional content or information associated with each item. There can be zero expanded items, exactly one expanded item, or more than one item expanded at a time, depending on the configuration. This list of items is defined by child accordion item elements.",
 	component: "Accordion",
 	argTypes: {
 		items: { table: { disable: true } },
@@ -49,11 +50,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: ["click .spectrum-Accordion-item"],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("accordion")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

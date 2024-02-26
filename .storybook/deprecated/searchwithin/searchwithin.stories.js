@@ -1,8 +1,27 @@
-// Import the component markup template
 import { Template } from "@spectrum-css/searchwithin/stories/template.js";
+
+import { hrefTo } from '@storybook/addon-links';
 
 import { default as PickerStories } from "@spectrum-css/picker/stories/picker.stories.js";
 const ignoreProps = ["rootClass", "position", "isRounded"];
+
+import "@spectrum-css/vars/dist/spectrum-large.css";
+import "@spectrum-css/vars/dist/spectrum-medium.css";
+
+import "@spectrum-css/vars/dist/spectrum-dark.css";
+import "@spectrum-css/vars/dist/spectrum-darkest.css";
+import "@spectrum-css/vars/dist/spectrum-light.css";
+
+import "@spectrum-css/vars/dist/spectrum-global.css";
+
+import "@spectrum-css/expressvars/dist/spectrum-large.css";
+import "@spectrum-css/expressvars/dist/spectrum-medium.css";
+
+import "@spectrum-css/expressvars/dist/spectrum-dark.css";
+import "@spectrum-css/expressvars/dist/spectrum-darkest.css";
+import "@spectrum-css/expressvars/dist/spectrum-light.css";
+
+import "@spectrum-css/expressvars/dist/spectrum-global.css";
 
 export default {
 	title: "Deprecated/Search within",
@@ -36,9 +55,20 @@ export default {
 			handles: [],
 		},
 		chromatic: { disable: true },
-		status: {
-			type: "deprecated"
+		badgesConfig: {
+			deprecated: {
+				tooltip: {
+					desc: "Use a search field with a separate control to filter the search instead.",
+					links: [
+						{
+							title: 'Search field',
+							href: await hrefTo('Components/Search'),
+						}
+					]
+				}
+			},
 		},
+		badges: ["deprecated"],
 	},
 };
 

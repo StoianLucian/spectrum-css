@@ -2,10 +2,11 @@ import isChromatic from "chromatic/isChromatic";
 import { html } from "lit";
 import { Template } from "./template";
 
+/**
+ * Progress circles show the progression of a system operation such as downloading, uploading, processing, etc. in a visual way. They can represent determinate or indeterminate progress.
+ */
 export default {
 	title: "Components/Progress circle",
-	description:
-		"Progress circles show the progression of a system operation such as downloading, uploading, processing, etc. in a visual way. They can represent determinate or indeterminate progress.",
 	component: "Progresscircle",
 	argTypes: {
 		size: {
@@ -46,11 +47,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("progresscircle")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

@@ -1,9 +1,7 @@
-// Import the component markup template
 import { Template } from "./template";
 
 export default {
 	title: "Components/Button group",
-	description: "The Button group component is...",
 	component: "Buttongroup",
 	argTypes: {
 		size: {
@@ -36,11 +34,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("buttongroup")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

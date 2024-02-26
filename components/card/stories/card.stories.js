@@ -1,15 +1,15 @@
 
-// Import the component markup template
 import { Template } from "./template";
 
 import { default as ActionButton } from "@spectrum-css/actionbutton/stories/actionbutton.stories.js";
 import { default as Checkbox } from "@spectrum-css/checkbox/stories/checkbox.stories.js";
 import { default as QuickAction } from "@spectrum-css/quickaction/stories/quickaction.stories.js";
 
+/**
+ * A card represents a rectangular space to contain text or images. Cards are typically used to encapsulate units of a data set, such as a gallery of image/caption pairs.
+ */
 export default {
   title: "Components/Card",
-  description:
-    "A card represents a rectangular space to contain text or images. Cards are typically used to encapsulate units of a data set, such as a gallery of image/caption pairs.",
   component: "Card",
   argTypes: {
     image: {
@@ -113,11 +113,6 @@ export default {
         ...QuickAction.parameters.actions.handles,
         ...Checkbox.parameters.actions.handles,
       ],
-    },
-    status: {
-      type: process.env.MIGRATED_PACKAGES.includes("card")
-        ? "migrated"
-        : undefined,
     },
   },
 };

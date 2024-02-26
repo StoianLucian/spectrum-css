@@ -4,10 +4,11 @@ import { styleMap } from "lit/directives/style-map.js";
 
 import { Template } from "./template";
 
+/**
+ * Opacity checkerboard is used with other components to highlight opacity.
+ */
 export default {
 	title: "Components/Opacity checkerboard",
-	description:
-		"Opacity checkerboard is used with other components to highlight opacity.",
 	component: "OpacityCheckerboard",
 	argTypes: {
 		backgroundPosition: {
@@ -28,11 +29,6 @@ export default {
 		actions: {
 			handles: [],
 		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("opacitycheckerboard")
-				? "migrated"
-				: undefined,
-		},
 	},
 	decorators: [
 		(Story, context) => html`<div style=${styleMap({ inlineSize: "100px", blockSize: "100px" })}>${Story(context)}</div>`
@@ -46,6 +42,9 @@ Default.args = {
 	}
 };
 
+/**
+ * An example of using the <code>--mod-opacity-checkerboard-position</code> custom property to adjust the position of the checkerboard pattern.
+ */
 export const CheckerboardPosition = Template.bind({});
 CheckerboardPosition.args = {
 	backgroundPosition: 'center center',
@@ -53,12 +52,4 @@ CheckerboardPosition.args = {
 		"inline-size": "100%",
 		"block-size": "100%"
 	}
-};
-CheckerboardPosition.parameters = {
-	docs: {
-		description: {
-			story:
-				"An example of using the <code>--mod-opacity-checkerboard-position</code> custom property to adjust the position of the checkerboard pattern.",
-		},
-	},
 };

@@ -2,9 +2,11 @@ import { Default as MenuStories } from "@spectrum-css/menu/stories/menu.stories.
 import { html } from "lit";
 import { Template } from "./template";
 
+/**
+ * A picker outlines a set of options for a user.
+ */
 export default {
 	title: "Components/Picker",
-	description: "A picker outlines a set of options for a user.",
 	component: "Picker",
 	argTypes: {
 		size: {
@@ -127,11 +129,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("picker")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

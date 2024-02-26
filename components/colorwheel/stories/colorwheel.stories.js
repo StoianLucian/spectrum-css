@@ -1,10 +1,10 @@
-// Import the component markup template
 import { Template } from "./template";
 
+/**
+ * The color wheel component lets users visually change an individual channel of a color on a circular track.
+ */
 export default {
 	title: "Components/Color wheel",
-	description:
-		"The Color wheel component lets users visually change an individual channel of a color on a circular track.",
 	component: "ColorWheel",
 	argTypes: {
 		isDisabled: {
@@ -35,11 +35,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("colorwheel")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

@@ -1,10 +1,10 @@
-// Import the component markup template
 import { Template } from "./template";
 
+/**
+ * The Progress bar component shows the progression of a system operation such as downloading, uploading, processing, etc. in a visual way.
+ */
 export default {
 	title: "Components/Progress bar",
-	description:
-		"The Progress bar component shows the progression of a system operation such as downloading, uploading, processing, etc. in a visual way.",
 	component: "ProgressBar",
 	argTypes: {
 		customWidth: { table: { disable: true } },
@@ -60,11 +60,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("progressbar")
-				? "migrated"
-				: undefined,
 		},
 	},
 };

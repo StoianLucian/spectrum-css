@@ -1,14 +1,15 @@
-// Import the component markup template
 import { Template } from "./template";
 
-import { default as Popover } from "@spectrum-css/popover/stories/popover.stories.js";
-import { default as CloseButton } from "@spectrum-css/closebutton/stories/closebutton.stories.js";
 import { default as ActionButton } from "@spectrum-css/actionbutton/stories/actionbutton.stories.js";
+import { default as CloseButton } from "@spectrum-css/closebutton/stories/closebutton.stories.js";
+import { default as Popover } from "@spectrum-css/popover/stories/popover.stories.js";
 
+/**
+ * The action bar component is a floating full width bar that appears upon selection
+ */
 export default {
 	title: "Components/Action bar",
-	description: "The Action bar component is a floating full width bar that appears upon selection",
-	component: "Actionbar",
+	component: "ActionBar",
 	argTypes: {
 		isOpen: {
 			name: "Open",
@@ -72,17 +73,11 @@ export default {
 				...ActionButton.parameters.actions.handles,
 			],
 		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("actionbar")
-				? "migrated"
-				: undefined,
+		design: {
+			type: "figma",
+			url: "https://www.figma.com/file/MPtRIVRzPp2VHiEplwXL2X/S-%2F-Desktop?type=design&node-id=465%3A3127&mode=design&t=DBHnFzHwPDzCjf83-1",
 		},
-    // Getting the Figma link: https://help.figma.com/hc/en-us/articles/360045003494-Storybook-and-Figma
-    design: {
-       type: "figma",
-       url: "https://www.figma.com/file/MPtRIVRzPp2VHiEplwXL2X/S-%2F-Manual?node-id=465%3A3127&t=xbooxCWItOFgG2xM-1",
-    },
-  }
+	},
 };
 
 export const Default = Template.bind({});

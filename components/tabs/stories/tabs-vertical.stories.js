@@ -1,11 +1,10 @@
-// Import the component markup template
-import { Template } from "./template";
 import {
-  argTypes, 
-  verticalProps, 
-  verticalWithIconsProps,
-  verticalIconOnlyProps
+  argTypes,
+  verticalIconOnlyProps,
+  verticalProps,
+  verticalWithIconsProps
 } from "./index.js";
+import { Template } from "./template";
 
 export default {
   title: "Components/Tabs/Vertical",
@@ -24,9 +23,6 @@ export default {
     actions: {
       handles: []
     },
-    status: {
-      type: process.env.MIGRATED_PACKAGES.includes('tabs') ? 'migrated' : undefined
-    }
   }
 };
 
@@ -38,4 +34,3 @@ WithIcon.args = verticalWithIconsProps;
 
 export const iconOnly = Template.bind({});
 iconOnly.args = verticalIconOnlyProps;
-

@@ -1,11 +1,10 @@
-// Import the component markup template
-import { Template } from "./template";
 import {
-  argTypes, 
-  horizontalProps, 
-  horizontalWithIconsProps,
-  horizontalIconOnlyProps
+  argTypes,
+  horizontalIconOnlyProps,
+  horizontalProps,
+  horizontalWithIconsProps
 } from "./index.js";
+import { Template } from "./template";
 
 export default {
   title: "Components/Tabs/Horizontal/Emphasized",
@@ -23,9 +22,6 @@ export default {
     actions: {
       handles: []
     },
-    status: {
-      type: process.env.MIGRATED_PACKAGES.includes('tabs') ? 'migrated' : undefined
-    }
   }
 };
 
@@ -37,4 +33,3 @@ WithIcon.args = horizontalWithIconsProps;
 
 export const IconOnly = Template.bind({});
 IconOnly.args = horizontalIconOnlyProps;
-

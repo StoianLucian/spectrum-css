@@ -2,10 +2,11 @@ import { Template } from "./template";
 
 import { html } from "lit";
 
+/**
+ * Spectrum Typography is broken out into several separate components.
+ */
 export default {
 	title: "Components/Typography",
-	description:
-		"Spectrum Typography is broken out into several separate components.",
 	component: "Typography",
 	argTypes: {
 		reduceMotion: { table: { disable: true } },
@@ -53,7 +54,6 @@ export default {
 		},
 		content: { table: { disable: true } },
 	},
-	// More on args: https://storybook.js.org/docs/web-components/writing-stories/args
 	args: {
 		rootClass: "spectrum-Typography",
 		size: "m",
@@ -63,10 +63,9 @@ export default {
 		actions: {
 			handles: [],
 		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("typography")
-				? "migrated"
-				: undefined,
+		design: {
+			type: "figma",
+			url: "https://www.figma.com/file/MPtRIVRzPp2VHiEplwXL2X/S-%2F-Desktop?type=design&node-id=5410%3A29301&mode=design&t=DBHnFzHwPDzCjf83-1",
 		},
 	},
 };
@@ -125,6 +124,11 @@ Heading.args = {
 	semantics: "heading",
 	content: ["Aliquet Mauris Eu"],
 };
+Heading.parameters = {
+	design: {
+		url: "https://www.figma.com/file/MPtRIVRzPp2VHiEplwXL2X/S-%2F-Desktop?type=design&node-id=5410%3A29461&mode=design&t=DBHnFzHwPDzCjf83-1"
+	}
+};
 
 export const Body = (args) => {
 	return html`${["xs", "s", "m", "l", "xl", "xxl", "xxxl"]
@@ -149,6 +153,11 @@ Body.args = {
 	content: [
 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend est mollis ligula lobortis, tempus ultricies sapien lacinia. Nulla ut turpis velit. Sed finibus dapibus diam et sollicitudin. Phasellus in ipsum nec ante elementum congue eget in leo. Morbi eleifend justo non rutrum venenatis. Fusce cursus et lectus eu facilisis. Ut laoreet felis in magna dignissim feugiat.",
 	],
+};
+Body.parameters = {
+	design: {
+		url: "https://www.figma.com/file/MPtRIVRzPp2VHiEplwXL2X/S-%2F-Desktop?type=design&node-id=5410%3A29510&mode=design&t=DBHnFzHwPDzCjf83-1"
+	}
 };
 
 export const Detail = (args) => {
@@ -181,6 +190,11 @@ Detail.args = {
 	semantics: "detail",
 	content: ["Aliquet Mauris Eu"],
 };
+Detail.parameters = {
+	design: {
+		url: "https://www.figma.com/file/MPtRIVRzPp2VHiEplwXL2X/S-%2F-Desktop?type=design&node-id=5410%3A29525&mode=design&t=DBHnFzHwPDzCjf83-1"
+	}
+};
 
 export const Code = (args) => {
 	return html`${["xs", "s", "m", "l", "xl"].reverse().map((size) => {
@@ -201,4 +215,9 @@ Code.argTypes = {
 Code.args = {
 	semantics: "code",
 	content: ["console.log('Hello World!');"],
+};
+Code.parameters = {
+	design: {
+		url: "https://www.figma.com/file/MPtRIVRzPp2VHiEplwXL2X/S-%2F-Desktop?type=design&node-id=5410%3A29542&mode=design&t=DBHnFzHwPDzCjf83-1"
+	}
 };

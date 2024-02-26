@@ -1,13 +1,33 @@
-// Import the component markup template
 import { Template } from "@spectrum-css/cyclebutton/stories/template";
 
 import { default as ActionButtonStories } from "@spectrum-css/actionbutton/stories/actionbutton.stories.js";
 import { default as IconStories } from "@spectrum-css/icon/stories/icon.stories.js";
 
+import { hrefTo } from '@storybook/addon-links';
+
+import "@spectrum-css/vars/dist/spectrum-large.css";
+import "@spectrum-css/vars/dist/spectrum-medium.css";
+
+import "@spectrum-css/vars/dist/spectrum-dark.css";
+import "@spectrum-css/vars/dist/spectrum-darkest.css";
+import "@spectrum-css/vars/dist/spectrum-light.css";
+
+import "@spectrum-css/vars/dist/spectrum-global.css";
+
+import "@spectrum-css/expressvars/dist/spectrum-large.css";
+import "@spectrum-css/expressvars/dist/spectrum-medium.css";
+
+import "@spectrum-css/expressvars/dist/spectrum-dark.css";
+import "@spectrum-css/expressvars/dist/spectrum-darkest.css";
+import "@spectrum-css/expressvars/dist/spectrum-light.css";
+
+import "@spectrum-css/expressvars/dist/spectrum-global.css";
+
+/**
+ * The cycle button component is an action button that cycles through two different icons, a play that then changes to a pause, for example.
+*/
 export default {
 	title: "Deprecated/Cycle button",
-	description:
-		"The Cycle button component is an action button that cycles through two different icons, a play that then changes to a pause, for example.",
 	component: "CycleButton",
 	argTypes: {
 		size: ActionButtonStories?.argTypes?.size ?? {},
@@ -36,9 +56,20 @@ export default {
 			handles: [...(ActionButtonStories?.parameters?.actions?.handles ?? [])],
 		},
 		chromatic: { disable: true },
-		status: {
-			type: "deprecated"
+		badgesConfig: {
+			deprecated: {
+				tooltip: {
+					desc: "Use the quiet variant of action button with the appropriate icon(s) instead. Any icon swapping that happens on-click/on-key should be handled by the implementation.",
+					links: [
+						{
+							title: 'Action button',
+							href: await hrefTo('Components/Action button/Quiet'),
+						}
+					]
+				}
+			},
 		},
+		badges: ["deprecated"],
 	},
 };
 

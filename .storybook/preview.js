@@ -15,26 +15,8 @@ import { setConsoleOptions } from "@storybook/addon-console";
 
 const panelExclude = setConsoleOptions({}).panelExclude || [];
 setConsoleOptions({
-	panelExclude: [...panelExclude, /deprecated/, /TypeError/, /postcss-dropunusedvars/],
+	panelExclude: [...panelExclude, /deprecated/, /TypeError/, /postcss-/],
 });
-
-import "@spectrum-css/vars/dist/spectrum-large.css";
-import "@spectrum-css/vars/dist/spectrum-medium.css";
-
-import "@spectrum-css/vars/dist/spectrum-dark.css";
-import "@spectrum-css/vars/dist/spectrum-darkest.css";
-import "@spectrum-css/vars/dist/spectrum-light.css";
-
-import "@spectrum-css/vars/dist/spectrum-global.css";
-
-import "@spectrum-css/expressvars/dist/spectrum-large.css";
-import "@spectrum-css/expressvars/dist/spectrum-medium.css";
-
-import "@spectrum-css/expressvars/dist/spectrum-dark.css";
-import "@spectrum-css/expressvars/dist/spectrum-darkest.css";
-import "@spectrum-css/expressvars/dist/spectrum-light.css";
-
-import "@spectrum-css/expressvars/dist/spectrum-global.css";
 
 import "@spectrum-css/tokens";
 
@@ -42,7 +24,6 @@ import "./global.js";
 
 // Rendered as controls; these properties are assigned
 //      to the document root element
-// @todo: resolve errors on 'name' and 'title' in console
 
 export const globalTypes = {
 	textDirection: {
@@ -204,12 +185,10 @@ export const parameters = {
 	isFullscreen: false,
 	options: {
 		storySort: {
-			method: "alphabetical",
-			order: ['Guides', ['Contributing', '*', 'Adobe Code of Conduct', 'Changelog'], 'Components', '*'],
-			includeNames: true,
+			method: "alphabetical-by-kind",
+			order: ['Guides', ['Contributing', '*', 'Adobe Code of Conduct'], 'Components', ['Docs', 'Default', '*'], 'Deprecated', ['Docs', 'Default', '*'], '*'],
 		},
 	},
-	// chromatic: { forcedColors: 'active' },
 	controls: {
 		expanded: true,
 		hideNoControlsWarning: true,
@@ -240,13 +219,26 @@ export const parameters = {
 			language: "html",
 		},
 	},
-	status: {
-		statuses: {
-			migrated: {
-				background: "#f0f0f0",
+	badgesConfig: {
+		s2: {
+			styles: {
+				backgroundColor: "#49cc9399",
+				borderColor: "transparent",
+				borderRadius: "4px",
 				color: "#444",
-				description: "Migrated to the latest tokens.",
 			},
+			title: "Spectrum 2",
+			description: "Migrated to the latest S2 tokens.",
+		},
+		deprecated: {
+			styles: {
+				backgroundColor: "#ff9b8899",
+				borderColor: "transparent",
+				borderRadius: "4px",
+				color: "#444",
+			},
+			title: "Deprecated",
+			description: "This component is deprecated.",
 		},
 	},
 };

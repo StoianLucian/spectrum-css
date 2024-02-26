@@ -1,12 +1,12 @@
-// Import the component markup template
 import { Template } from "./template";
 
 import { default as Checkbox } from "@spectrum-css/checkbox/stories/checkbox.stories.js";
 
+/**
+ * A selectable list of assets, often used inside of miller columns.
+ */
 export default {
 	title: "Components/Asset list",
-	description:
-		"A selectable list of Assets, often used inside of Miller Columns.",
 	component: "AssetList",
 	argTypes: {
 		items: { table: { disable: true } },
@@ -17,11 +17,6 @@ export default {
 	parameters: {
 		actions: {
 			handles: [...Checkbox.parameters.actions.handles],
-		},
-		status: {
-			type: process.env.MIGRATED_PACKAGES.includes("assetlist")
-				? "migrated"
-				: undefined,
 		},
 	},
 };
