@@ -20,11 +20,6 @@ governing permissions and limitations under the License.
     --spectrum-alias-border-radius-small
   );
 
-  [dir="rtl"] &,
-	&:dir(rtl) {
-		--spectrum-logical-rotation: matrix(-1, 0, 0, 1, 0, 0);
-	}
-
   & .spectrum-SplitButton-trigger {
     --spectrum-splitbutton-trigger-round-edge-padding: var(--spectrum-global-dimension-size-125);
     --spectrum-splitbutton-trigger-flat-edge-padding: var(--spectrum-global-dimension-size-100);
