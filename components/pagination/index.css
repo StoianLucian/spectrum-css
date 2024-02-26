@@ -46,10 +46,20 @@ governing permissions and limitations under the License.
 /* Previous and next buttons */
 .spectrum-Pagination-prevButton {
   margin-inline-end: var(--mod-pagination-page-button-inline-spacing, var(--spectrum-pagination-page-button-inline-spacing));
+
+  /* Correct the direction of the arrows when viewing right-to-left */
+  & .spectrum-Icon {
+    transform: var(--spectrum-logical-rotation,) rotate(180deg);
+  }
 }
 
 .spectrum-Pagination-nextButton {
   margin-inline-start: var(--mod-pagination-page-button-inline-spacing, var(--spectrum-pagination-page-button-inline-spacing));
+
+  /* Correct the direction of the arrows when viewing right-to-left */
+  & .spectrum-Icon {
+    transform: var(--spectrum-logical-rotation);
+  }
 }
 
 /* Correct the direction of the arrows when viewing right-to-left */
