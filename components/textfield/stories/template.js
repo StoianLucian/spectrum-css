@@ -1,4 +1,4 @@
-import { useArgs } from "@storybook/client-api";
+import { useArgs } from "@storybook/preview-api";
 import { html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
@@ -33,7 +33,6 @@ export const Template = ({
 	labelPosition = "top",
 	labelText,
 	iconName,
-	iconSet,
 	pattern,
 	placeholder,
 	name,
@@ -55,11 +54,12 @@ export const Template = ({
 		console.warn(e);
 	}
 
+	let iconSet = "workflow";
+	let uiIconName;
 	if (isInvalid) {
 		iconName = "Alert";
-		iconSet = "workflow";
 	} else if (isValid) {
-		iconName = "Checkmark";
+		uiIconName = "Checkmark";
 		iconSet = "ui";
 	}
 
@@ -103,10 +103,11 @@ export const Template = ({
 						label: labelText,
 					})
 			)}
-			${when(iconName, () => Icon({
+			${when((iconName || uiIconName), () => Icon({
 				...globals,
 				size,
 				iconName,
+				uiIconName,
 				setName: iconSet,
 				customClasses: [
 					!!(isInvalid || isValid)

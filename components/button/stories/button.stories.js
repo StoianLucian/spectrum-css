@@ -34,7 +34,12 @@ export default {
 		},
 		iconName: {
 			...(IconStories?.argTypes?.iconName ?? {}),
-			if: false,
+		},
+		uiIconName: {
+			...(IconStories?.argTypes?.uiIconName ?? {}),
+		},
+		setName: {
+			...(IconStories?.argTypes?.setName ?? {}),
 		},
 		hideLabel: {
 			table: {
@@ -124,6 +129,7 @@ export default {
 		isPending: false,
 		showIconOnlyButton: true,
 		layout: "inline",
+		setName: "workflow",
 	},
 	parameters: {
 		actions: {

@@ -125,7 +125,6 @@ export default {
 		rootClass: "spectrum-SearchWithin",
 		isOpen: false,
 		isQuiet: false,
-		isDisabled: false,
 		size: "m",
 		label: "All",
 		placeholder: "Search",

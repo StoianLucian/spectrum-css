@@ -17,7 +17,8 @@ export const Template = ({
 	rootClass = "spectrum-ActionButton",
 	size = "m",
 	iconName,
-	iconSet,
+	uiIconName,
+	setName = "workflow",
 	label,
 	isQuiet = false,
 	isSelected = false,
@@ -70,16 +71,18 @@ export const Template = ({
 				Icon({
 					...globals,
 					size,
-					iconName: "CornerTriangle100",
+					uiIconName: "CornerTriangle",
+					setName: "ui",
 					customClasses: [`${rootClass}-hold`],
 				})
 			)}
-			${when(iconName, () =>
+			${when((iconName || uiIconName), () =>
 				Icon({
 					...globals,
 					size,
 					iconName,
-					setName: iconSet,
+					uiIconName,
+					setName,
 					customClasses: [`${rootClass}-icon`, ...customIconClasses],
 				})
 			)}

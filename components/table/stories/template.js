@@ -108,7 +108,8 @@ export const TableRowItem = ({
 							${when(!isLastTier, () =>
 								Button({
 									size,
-									iconName: "ChevronRight100",
+									uiIconName: "ChevronRight",
+									setName: "ui",
 									hideLabel: true,
 									customClasses: [`${rootClass}-disclosureIcon`],
 									ariaExpanded: isExpanded,
@@ -231,12 +232,14 @@ export const Template = ({
 					tabindex="0"
 				>
 					${Icon({
-						iconName: "ArrowDown100",
+						uiIconName: "ArrowDown",
+						setName: "ui",
 						size,
 						customClasses: [`${rootClass}-sortedIcon`],
 					})}<span class="${rootClass}-columnTitle">Column title</span>${
 					Icon({
-						iconName: "ChevronDown100",
+						uiIconName: "ChevronDown",
+						setName: "ui",
 						size,
 						customClasses: [`${rootClass}-menuIcon`],
 					})}
@@ -248,7 +251,8 @@ export const Template = ({
 					tabindex="0"
 				>
 					${Icon({
-						iconName: "ArrowDown100",
+						uiIconName: "ArrowDown",
+						setName: "ui",
 						size,
 						customClasses: [`${rootClass}-sortedIcon`],
 					})}<span class="${rootClass}-columnTitle">Column title</span>

@@ -9,7 +9,7 @@ export const Template = ({
 	items = [],
 	isOpen = false,
 	label,
-	iconName,
+	iconName = "More",
 	size = "m",
 	...globals
 }) => {
@@ -32,13 +32,11 @@ export const Template = ({
 		trigger: (passthroughs) => ActionButton({
 			size,
 			label,
-			iconName,
 			isQuiet: false,
 			isEmphasized: false,
 			hasPopup: false,
 			isSelected: isOpen,
-			label,
-			iconName: "More",
+			iconName,
 			id: "trigger",
 			customClasses,
 			...passthroughs,

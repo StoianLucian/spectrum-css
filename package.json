@@ -87,7 +87,7 @@
     "nx": "^18.0.4",
     "open": "^10.0.3",
     "pajv": "^1.2.0",
-    "postcss": "^8.4.35",
+    "postcss": "^8.4.38",
     "postcss-calc": "^9.0.1",
     "postcss-combininator": "^2.0.0",
     "postcss-discard-comments": "^6.0.1",

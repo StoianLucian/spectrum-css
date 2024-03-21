@@ -7,13 +7,11 @@ import logo from "./assets/logo.svg";
 import pkg from "./package.json";
 
 // Load global styles
-import "@spectrum-css/vars/css/globals/index.css";
 import "@spectrum-css/vars/css/components/index.css";
+import "@spectrum-css/vars/css/globals/index.css";
 
 import "@spectrum-css/vars/css/scales/spectrum-medium.css";
 import "@spectrum-css/vars/css/themes/spectrum-light.css";
-
-import "./global.js";
 
 addons.setConfig({
 	theme: create({

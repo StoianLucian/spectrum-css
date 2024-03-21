@@ -1,4 +1,4 @@
-import { useArgs } from "@storybook/client-api";
+import { useArgs } from "@storybook/preview-api";
 import { html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
@@ -21,6 +21,8 @@ export const Template = ({
   label,
   hideLabel = false,
   iconName,
+  uiIconName,
+  setName,
   iconAfterLabel = false,
   variant,
   staticColor,
@@ -67,11 +69,11 @@ export const Template = ({
       aria-expanded=${ifDefined(ariaExpanded?.toString())}
       aria-controls=${ifDefined(ariaControls)}
     >
-      ${when(iconName && !iconAfterLabel, () => Icon({ ...globals, iconName, size }))}
+      ${when((iconName || uiIconName) && !iconAfterLabel, () => Icon({ ...globals, iconName, uiIconName, setName, size }))}
       ${when(label && !hideLabel,
         () => html`<span class=${`${rootClass}-label`}>${label}</span>`
       )}
-      ${when(iconName && iconAfterLabel, () => Icon({ ...globals, iconName, size }))}
+      ${when((iconName || uiIconName) && iconAfterLabel, () => Icon({ ...globals, iconName, uiIconName, setName, size }))}
       ${when(isPendingStory, () => {
         const isOverBackground = staticColor === 'white';
         return ProgressCircle({

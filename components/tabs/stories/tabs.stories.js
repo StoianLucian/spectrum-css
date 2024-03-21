@@ -101,7 +101,7 @@ export default {
       handles: ['.spectrum-Tabs-item'],
     },
     status: {
-      type: process.env.MIGRATED_PACKAGES.includes('tabs') ? 'migrated' : 'legacy'
+      type: 'migrated'
     }
   }
 };

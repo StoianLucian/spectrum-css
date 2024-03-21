@@ -36,9 +36,7 @@ export const Template = ({
 		console.warn(e);
 	}
 
-	if(isInvalid) {
-		iconName = 'Alert'
-	}
+	if(isInvalid) iconName = 'Alert'
 
 	return html`
 		<div
@@ -63,11 +61,12 @@ export const Template = ({
 						size: "50",
 				  })
 				: ""}
-			${iconName || isInvalid
+			${iconName
 				? Icon({
 						...globals,
 						size,
 						iconName,
+						setName: "workflow",
 						customClasses: [`${rootClass}-itemIcon`],
 				  })
 				: ""}

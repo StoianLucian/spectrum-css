@@ -39,7 +39,7 @@ export default {
       handles: []
     },
     status: {
-      type: process.env.MIGRATED_PACKAGES.includes('sidenav') ? 'migrated' : undefined
+      type: 'migrated'
     }
   }
 };

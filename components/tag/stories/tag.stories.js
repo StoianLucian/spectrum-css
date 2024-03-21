@@ -30,7 +30,6 @@ export default {
 		},
 		iconName: {
 			...(IconStories?.argTypes?.iconName ?? {}),
-			if: false,
 			if: { arg: "hasIcon", truthy: true },
 		},
 		hasAvatar: {
@@ -140,7 +139,6 @@ Default.args = {};
 export const Icon = Template.bind({});
 Icon.args = {
 	hasIcon: true,
-	iconName: 'Info',
 	label: 'Tag label that truncates when it gets too long',
 	customStyles: {"max-inline-size": "200px"}
 };

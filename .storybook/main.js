@@ -45,20 +45,13 @@ module.exports = {
 	],
 	core: {
 		disableTelemetry: true,
-	},
-	env: {
-		MIGRATED_PACKAGES: componentPkgs.filter((dir) => {
-			const {
-				peerDependencies = {},
-			} = require(resolve(componentsPath, dir, "package.json"));
-			if (
-				peerDependencies &&
-				peerDependencies["@spectrum-css/tokens"]
-			) {
-				return true;
-			}
-			return false;
-		}),
+		builder: {
+			name: '@storybook/builder-webpack5',
+			options: {
+				fsCache: true,
+				lazyCompilation: true,
+			},
+		},
 	},
 	webpackFinal: function (config) {
 		// Removing the global alias as it conflicts with the global npm pkg
@@ -74,10 +67,13 @@ module.exports = {
 				: [];
 		return {
 			...config,
-			stats: {
-				/* Suppress autoprefixer warnings from storybook build */
-				warningsFilter: [/autoprefixer: /, /postcss-*/, /stylelint/],
-			},
+			ignoreWarnings: [
+				...(config.ignoreWarnings ?? []),
+				/autoprefixer/,
+				/postcss/,
+				/stylelint/,
+				/Failed to parse source map/,
+			],
 			/* Add support for root node_modules imports */
 			resolve: {
 				...(config.resolve ? config.resolve : {}),
@@ -158,26 +154,12 @@ module.exports = {
 						type: 'asset/source',
 					},
 				],
-			},
+			}
 		};
 	},
 	framework: {
 		name: "@storybook/web-components-webpack5",
-		options: {},
 	},
-	features: {
-		/* Code splitting flag; load stories on-demand */
-		storyStoreV7: true,
-		/* Builds stories.json to help with on-demand loading */
-		buildStoriesJson: true,
-	},
-	// refs: {
-	//   'swc': {
-	//     title: 'Spectrum Web Components',
-	//     url: 'https://opensource.adobe.com/spectrum-web-components/storybook/',
-	//     expanded: false,
-	//   },
-	// },
 	docs: {
 		autodocs: true, // see below for alternatives
 		defaultName: "Docs", // set to change the name of generated docs entries

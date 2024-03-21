@@ -54,8 +54,8 @@ export const Template = ({
 			position: "left",
 			variant: "accent",
 			label: "Next",
-			iconName: "ChevronLeft100",
-			labelIconName: "ChevronRight100",
+			iconName: "ChevronLeft",
+			labelIconName: "ChevronRight",
 			customFirstButtonClasses: ["spectrum-Pagination-prevButton"],
 			customLastButtonClasses: ["spectrum-Pagination-nextButton"]
 		});

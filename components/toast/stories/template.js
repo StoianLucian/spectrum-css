@@ -2,9 +2,9 @@ import { html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 
-import { Template as Icon } from "@spectrum-css/icon/stories/template.js";
-import { Template as CloseButton } from "@spectrum-css/closebutton/stories/template.js";
 import { Template as Button } from "@spectrum-css/button/stories/template.js";
+import { Template as CloseButton } from "@spectrum-css/closebutton/stories/template.js";
+import { Template as Icon } from "@spectrum-css/icon/stories/template.js";
 
 import "../index.css";
 
@@ -47,7 +47,8 @@ export const Template = ({
 			${variant
 				? Icon({
 						...globals,
-						iconName: ifDefined(iconName),
+						iconName,
+						setName: "workflow",
 						size: "m",
 						customClasses: [`${rootClass}-typeIcon`],
 				  })

@@ -58,7 +58,6 @@ Default.args = {
     treatment: "outline",
     label: "Remind me later"
   }, {
-    variant: "primary",
     treatment: "fill",
     label: "Enable",
     variant: "accent"
@@ -96,7 +95,6 @@ Warning.args = {
     treatment: "outline",
     label: "Cancel"
   }, {
-    variant: "primary",
     treatment: "outline",
     label: "Continue",
     variant: "primary"
@@ -114,7 +112,6 @@ Error.args = {
     treatment: "outline",
     label: "Cancel"
   }, {
-    variant: "primary",
     treatment: "outline",
     label: "Continue",
     variant: "primary"
@@ -132,7 +129,6 @@ Destructive.args = {
     treatment: "outline",
     label: "Cancel"
   }, {
-    variant: "primary",
     treatment: "fill",
     label: "Delete",
     variant: "negative"

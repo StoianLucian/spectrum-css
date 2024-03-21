@@ -1,0 +1,35 @@
+{
+	"$schema": "https://json.schemastore.org/swcrc",
+	"jsc": {
+		"parser": {
+			"syntax": "ecmascript",
+			"jsx": false,
+			"dynamicImport": false,
+			"privateMethod": false,
+			"functionBind": false,
+			"exportDefaultFrom": false,
+			"exportNamespaceFrom": false,
+			"decorators": true,
+			"decoratorsBeforeExport": true,
+			"topLevelAwait": true,
+			"importMeta": false
+		},
+		"transform": null,
+		"target": "es2018",
+		"loose": false,
+		"externalHelpers": false,
+		"keepClassNames": true
+	},
+	"minify": false,
+	"env": {
+		"targets": [
+			"last 2 Edge versions",
+			"last 2 Chrome versions",
+			"last 2 Firefox versions",
+			"last 2 Safari versions",
+			"last 2 iOS versions"
+		],
+		"mode": "entry",
+		"coreJs": "3.22"
+	}
+}

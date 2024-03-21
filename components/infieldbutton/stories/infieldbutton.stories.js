@@ -64,7 +64,7 @@ export default {
       handles: []
     },
     status: {
-      type: process.env.MIGRATED_PACKAGES.includes('infieldbutton') ? 'migrated' : undefined
+      type: 'migrated'
     }
   }
 };
@@ -86,4 +86,3 @@ export const Disabled = Template.bind({});
 Disabled.args = {
   isDisabled: true
 };
-

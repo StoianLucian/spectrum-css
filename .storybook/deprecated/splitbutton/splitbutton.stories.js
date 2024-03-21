@@ -53,7 +53,7 @@ export default {
 		position: "right",
 		label: "Split Button",
 		variant: "accent",
-		iconName: "ChevronDown100",
+		iconName: "ChevronDown",
 	},
 	parameters: {
 		actions: {
@@ -73,7 +73,7 @@ const Template = ({
 	customLastButtonClasses = [],
 	size = "m",
 	variant = "cta",
-	iconName = "ChevronDown100",
+	iconName = "ChevronDown",
 	labelIconName = undefined,
 	position = "right",
 	label = "Split Button",
@@ -121,8 +121,8 @@ const Template = ({
 				...globals,
 				variant,
 				size,
-				iconName: position === "right"
-					? typeof labelIconName != "undefined" ? labelIconName : undefined
+				uiIconName: position === "right"
+					? (typeof labelIconName != "undefined" ? labelIconName : undefined)
 					: iconName,
 				label: position === "right" ? label : undefined,
 				hideLabel: position === "right" ? false : true,
@@ -137,9 +137,9 @@ const Template = ({
 				...globals,
 				variant,
 				size,
-				iconName: position === "right"
+				uiIconName: position === "right"
 					? iconName
-					: typeof labelIconName != "undefined" ? labelIconName : undefined,
+					: (typeof labelIconName != "undefined" ? labelIconName : undefined),
 				iconAfterLabel: true,
 				label: position === "right" ? undefined : label,
 				hideLabel: position === "right" ? true : false,

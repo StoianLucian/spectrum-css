@@ -5,11 +5,12 @@ export default {
 	description:
 		"The action button component represents an action a user can take.",
 	component: "ActionButton",
-	argTypes: argTypes,
+	argTypes,
 	args: {
 		rootClass: "spectrum-ActionButton",
 		size: "m",
 		iconName: "More",
+		setName: "workflow",
 		isQuiet: true,
 		isEmphasized: false,
 		hasPopup: false,

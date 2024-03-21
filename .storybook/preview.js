@@ -20,8 +20,6 @@ setConsoleOptions({
 
 import "@spectrum-css/tokens";
 
-import "./global.js";
-
 // Rendered as controls; these properties are assigned
 //      to the document root element
 // @todo: resolve errors on 'name' and 'title' in console

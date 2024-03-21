@@ -134,7 +134,7 @@ const Template = ({
 		>
 			${content.map((c) => {
 				if ((typeof c === "object" && c.iconName) || c.label) {
-					return ActionButton({ ...globals, ...c, isQuiet: true });
+					return ActionButton({ ...globals, ...c, iconSet: "workflow", isQuiet: true });
 				} else return c;
 			})}
 		</div>

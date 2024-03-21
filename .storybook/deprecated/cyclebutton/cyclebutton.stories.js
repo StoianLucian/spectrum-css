@@ -1,7 +1,7 @@
 import { default as ActionButtonStories } from "@spectrum-css/actionbutton/stories/actionbutton.stories.js";
 import { Template as ActionButton } from "@spectrum-css/actionbutton/stories/template.js";
 import { default as IconStories } from "@spectrum-css/icon/stories/icon.stories.js";
-import { useArgs } from "@storybook/client-api";
+import { useArgs } from "@storybook/preview-api";
 import { html } from "lit";
 
 import "@spectrum-css/cyclebutton/dist/index-vars.css";
@@ -70,6 +70,7 @@ export const Default = (({
 			isDisabled,
 			size,
 			iconName: initialIcon,
+			iconSet: "workflow",
 			onclick:
 				onclick ??
 				function () {

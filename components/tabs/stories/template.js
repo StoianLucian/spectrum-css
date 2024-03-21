@@ -90,7 +90,7 @@ export const Template = ({
 								tabindex="0"
 							>
 								${when(item.icon, () =>
-									Icon({ ...globals, iconName: item.icon, size })
+									Icon({ ...globals, iconName: item.icon, setName: "workflow", size })
 								)}
 								${when(
 									item.label && !iconOnly,

@@ -19,7 +19,12 @@ export const argTypes = {
 	},
 	iconName: {
 		...(IconStories?.argTypes?.iconName ?? {}),
-		if: false,
+	},
+	uiIconName: {
+		...(IconStories?.argTypes?.uiIconName ?? {}),
+	},
+	setName: {
+		...(IconStories?.argTypes?.setName ?? {}),
 	},
 	label: {
 		name: "Label",
