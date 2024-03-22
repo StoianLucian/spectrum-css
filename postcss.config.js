@@ -22,11 +22,14 @@ module.exports = ({
 	combine = false,
 	lint = true,
 	verbose = true,
+	shouldMinify = false,
 	additionalPlugins = {},
 	env = process.env.NODE_ENV ?? "development",
 	...options
 } = {}) => {
-	if (env === "development" && !options.map) {
+	const isProduction = env.toLowerCase() === "production";
+
+	if (!isProduction && !options.map) {
 		options.map = { inline: false };
 	}
 	else options.map = false;
@@ -142,8 +145,7 @@ module.exports = ({
 			},
 			/* --------------------------------------------------- */
 			/* ------------------- REPORTING --------------------- */
-			stylelint: lint
-				? {
+			"stylelint": lint ? {
 					cache: true,
 					// Passing the config path saves a little time b/c it doesn't have to find it
 					configFile: join(__dirname, "stylelint.config.js"),
@@ -152,14 +154,11 @@ module.exports = ({
 					ignorePath: join(__dirname, ".stylelintignore"),
 					reportNeedlessDisables: true,
 					reportInvalidScopeDisables: true,
-				}
-				: false,
-			"postcss-reporter": verbose
-				? {
-					clearAllMessages: true,
-					noIcon: true,
-				}
-				: false,
+			} : false,
+			"postcss-reporter": verbose ? {
+                clearAllMessages: true,
+                noIcon: true,
+            } : false,
 		},
 	};
 };
