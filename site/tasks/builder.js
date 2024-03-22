@@ -472,7 +472,7 @@ async function build_forPackage(componentName, globalData = {}) {
 	/** @todo how do we load dependencies not hosted in the repo? */
 	return Promise.all([
 		buildPages_forPackage(dirName, globalData),
-		copy_Assets(["*.css", "themes/*.css", "*.gz", "*.json"], {
+		copy_Assets(["*.css", "themes/*.css", "*.json"], {
 			cwd: path.join(dirName, "dist"),
 			outputDir,
 			allowEmpty: true,
