@@ -21,15 +21,16 @@ module.exports = ({
 	},
 	combine = false,
 	lint = true,
-	verbose = true,
 	shouldMinify = false,
+	verbose = true,
 	additionalPlugins = {},
 	env = process.env.NODE_ENV ?? "development",
 	...options
 } = {}) => {
-	const isProduction = env.toLowerCase() === "production";
+	let rootFileName = to ? basename(to, ".css") : file ? basename(file, ".css") : undefined;
+	rootFileName = rootFileName.replace(/.min$/, "");
 
-	if (!isProduction && !options.map) {
+	if (env === "development" && !options.map) {
 		options.map = { inline: false };
 	}
 	else options.map = false;
@@ -42,27 +43,18 @@ module.exports = ({
 		splitinatorOptions.noSelectors = true;
 
 		/* themes/express.css */
-		if (
-			(to && basename(to, ".css") === "express") ||
-			(file && basename(file, ".css") === "express")
-		) {
+		if (rootFileName === "express") {
 			combine = true;
 		}
 	}
 
 	/* index-theme.css */
-	if (
-		(to && basename(to, ".css") === "index-theme") ||
-		(file && basename(file, ".css") === "index-theme")
-	) {
+	if (rootFileName === "index-theme") {
 		splitinatorOptions.noSelectors = true;
 	}
 
 	/* index-base.css */
-	if (
-		(to && basename(to, ".css") === "index-base") ||
-		(file && basename(file, ".css") === "index-base")
-	) {
+	if (rootFileName === "index-base") {
 		splitinatorOptions.noFlatVariables = true;
 	}
 
@@ -138,6 +130,7 @@ module.exports = ({
 						discardComments: {
 							removeAllButFirst: true,
 						},
+						normalizeWhitespace: shouldMinify,
 						// @todo yarn add -DW css-declaration-sorter
 						cssDeclarationSorter: false, // @todo { order: "smacss" }
 					},
@@ -145,7 +138,8 @@ module.exports = ({
 			},
 			/* --------------------------------------------------- */
 			/* ------------------- REPORTING --------------------- */
-			"stylelint": lint ? {
+			stylelint: lint
+				? {
 					cache: true,
 					// Passing the config path saves a little time b/c it doesn't have to find it
 					configFile: join(__dirname, "stylelint.config.js"),
@@ -154,11 +148,14 @@ module.exports = ({
 					ignorePath: join(__dirname, ".stylelintignore"),
 					reportNeedlessDisables: true,
 					reportInvalidScopeDisables: true,
-			} : false,
-			"postcss-reporter": verbose ? {
-                clearAllMessages: true,
-                noIcon: true,
-            } : false,
+				}
+				: false,
+			"postcss-reporter": verbose
+				? {
+					clearAllMessages: true,
+					noIcon: true,
+				}
+				: false,
 		},
 	};
 };

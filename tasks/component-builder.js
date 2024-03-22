@@ -130,44 +130,44 @@ async function extractModifiers(filepath, { cwd } = {}) {
 			fs.mkdirSync(path.join(cwd, "metadata"));
 		}
 
-        promises.push(
-            fsp.writeFile(
-                path.join(cwd, `metadata/mods.md`),
-                (await prettier.format(
-                    [
-                        "| Modifiable custom properties |\n| --- |",
-                        ...[...found].sort().map((result) => `| \`${result}\` |`),
-                    ].join("\n"),
-                    { parser: "markdown" }
-                )),
-                { encoding: "utf-8" }
-            )
-            .then(() => `${"✓".green}  ${"metadata/mods.md".padEnd(20, " ").yellow}  ${'-- deprecated --'.gray}`)
-            .catch((err) => {
-                if (!err) return;
-                console.log(`${"✗".red}  ${"metadata/mods.md".yellow} not written`);
-                return Promise.reject(err);
-            })
-        );
-    }
+		promises.push(
+			fsp.writeFile(
+				path.join(cwd, "metadata/mods.md"),
+				(await prettier.format(
+					[
+						"| Modifiable custom properties |\n| --- |",
+						...[...found].sort().map((result) => `| \`${result}\` |`),
+					].join("\n"),
+					{ parser: "markdown" }
+				)),
+				{ encoding: "utf-8" }
+			)
+				.then(() => `${"✓".green}  ${"metadata/mods.md".padEnd(20, " ").yellow}  ${"-- deprecated --".gray}`)
+				.catch((err) => {
+					if (!err) return;
+					console.log(`${"✗".red}  ${"metadata/mods.md".yellow} not written`);
+					return Promise.reject(err);
+				})
+		);
+	}
 
-    promises.push(
-        fsp.writeFile(
-            path.join(cwd, `dist/metadata.json`),
-            (await prettier.format(
-                JSON.stringify({
-                    selectors: [...selectors].sort(),
-                    mods: [...found].sort(),
-                    spectrum: [...spectrum].sort(),
-                    system: [...system].sort(),
-                    a11y: [...highContrast].sort(),
-                }, null, 2),
-                { parser: "json" }
-            )),
-            { encoding: "utf-8" }
-        ).then(() => {
-            const stats = fs.statSync(path.join(cwd, `dist/metadata.json`));
-            return [
+	promises.push(
+		fsp.writeFile(
+			path.join(cwd, "dist/metadata.json"),
+			(await prettier.format(
+				JSON.stringify({
+					selectors: [...selectors].sort(),
+					mods: [...found].sort(),
+					spectrum: [...spectrum].sort(),
+					system: [...system].sort(),
+					a11y: [...highContrast].sort(),
+				}, null, 2),
+				{ parser: "json" }
+			)),
+			{ encoding: "utf-8" }
+		).then(() => {
+			const stats = fs.statSync(path.join(cwd, "dist/metadata.json"));
+			return [
                 `${"✓".green}  ${"dist/metadata.json".padEnd(20, " ").yellow}  ${bytesToSize(stats.size).gray}`,
                 `🔍  ${`${found.size}`.underline} modifiable custom propert${found.size === 1 ? "y" : "ies"}`,
                 `🔍  ${`${selectors.size}`.underline} selector${found.size === 1 ? "" : "s"}`,
@@ -195,11 +195,11 @@ async function extractModifiers(filepath, { cwd } = {}) {
  */
 async function processCSS(content, input, output, {
 	cwd,
-	// clean = false,
-	minify = false,
 	...postCSSOptions
 } = {}) {
 	if (!content) return Promise.reject(new Error("This function requires content be provided"));
+
+	const minify = path.basename(output, ".css").endsWith(".min");
 
 	const { plugins, options } = await postcssrc(
 		{
@@ -208,10 +208,13 @@ async function processCSS(content, input, output, {
 			from: input,
 			to: output,
 			verbose: false,
+			shouldMinify: minify,
 			...postCSSOptions,
 		},
 		__dirname // This is the path to the directory where the postcss.config.js lives
 	);
+
+	content = await prettier.format(content, { parser: "css", printWidth: 500 });
 
 	const result = await postcss(plugins).process(content, options);
 
@@ -230,37 +233,30 @@ async function processCSS(content, input, output, {
 
 	const promises = [];
 
-    if (result.css) {
-        const formatted = await prettier.format(result.css.trimStart(), { parser: "css", printWidth: 500 });
-        promises.push(
-            fsp.writeFile(output, formatted).then(() => {
-                const stats = fs.statSync(output);
-                return `${"✓".green}  ${relativePrint(output, { cwd }).padEnd(20, " ").yellow}  ${bytesToSize(stats.size).gray}`;
-            }).catch((err) => {
-                if (!err) return;
-                console.log(`${"✗".red}  ${relativePrint(output, { cwd }).yellow} not written`);
-                return Promise.reject(err);
-            })
-        );
-    }
+	content = minify ? result.css.trim() : await prettier.format(result.css.trimStart(), { parser: "css", printWidth: 500 });
 
-		if (postCSSOptions.shouldMinify) {
-			promises.push(
-				gzip(formatted)
-					.then(zipped => fsp.writeFile(`${output}.gz`, zipped)
-						.then(() => {
-							const stats = fs.statSync(`${output}.gz`);
-							return `${"✓".green}  ${relativePrint(`${output}.gz`, { cwd }).padEnd(20, " ").yellow}  ${bytesToSize(stats.size).gray}`;
-						}).catch((err) => {
-							if (!err) return;
-							console.log(`${"✗".red}  ${relativePrint(`${output}.gz`, { cwd }).yellow} not written`);
-							return Promise.reject(err);
-						})
-					)
-					.catch((err) => Promise.resolve(err))
-			);
-		}
-	}
+	promises.push(
+		fsp.writeFile(output, content).then(() => {
+			const stats = fs.statSync(output);
+			return `${"✓".green}  ${relativePrint(output, { cwd }).padEnd(20, " ").yellow}  ${bytesToSize(stats.size).gray}`;
+		}).catch((err) => {
+			if (!err) return;
+			console.log(`${"✗".red}  ${relativePrint(output, { cwd }).yellow} not written`);
+			return Promise.reject(err);
+		}),
+		minify ? gzip(content)
+			.then(zipped => fsp.writeFile(`${output}.gz`, zipped)
+				.then(() => {
+					const stats = fs.statSync(`${output}.gz`);
+					return `${"✓".green}  ${relativePrint(`${output}.gz`, { cwd }).padEnd(20, " ").yellow}  ${bytesToSize(stats.size).gray}`;
+				}).catch((err) => {
+					if (!err) return;
+					console.log(`${"✗".red}  ${relativePrint(`${output}.gz`, { cwd }).yellow} not written`);
+					return Promise.reject(err);
+				})
+			)
+			.catch((err) => Promise.resolve(err)) : Promise.resolve(),
+	);
 
 	if (result.map) {
 		promises.push(
@@ -272,12 +268,6 @@ async function processCSS(content, input, output, {
 				console.log(`${"✗".red}  ${relativePrint(`${output}.map`, { cwd }).yellow} not written`);
 				return Promise.reject(err);
 			})
-		);
-	}
-
-	if (minify) {
-		promises.push(
-			processCSS(content, input, path.join(path.dirname(output), `${path.basename(output, ".css")}.min.css`), { cwd, shouldMinify: true, ...postCSSOptions }),
 		);
 	}
 
@@ -385,7 +375,7 @@ async function build({ cwd = process.cwd(), clean = false, minify = false } = {}
 
 	return Promise.all([
 		// This was buildCSS
-		processCSS(content, path.join(cwd, "index.css"), path.join(cwd, "dist", "index.css"), { cwd, clean, minify })
+		processCSS(content, path.join(cwd, "index.css"), path.join(cwd, "dist", "index.css"), { cwd, clean })
 			.then(async (reports) =>
 				Promise.all([
 					// After building, extract the available modifiers
@@ -396,13 +386,14 @@ async function build({ cwd = process.cwd(), clean = false, minify = false } = {}
 				// Return the console output to be logged
 					.then(r => [r, ...reports])
 			),
+		minify ? processCSS(content, path.join(cwd, "index.css"), path.join(cwd, "dist", "index.min.css"), { cwd, clean }) : Promise.resolve(),
 		// This was buildCSSWithoutThemes
-		processCSS(content, path.join(cwd, "index.css"), path.join(cwd, "dist/index-base.css"), {
+		processCSS(content, path.join(cwd, "index.css"), path.join(cwd, "dist", "index-base.css"), {
 			cwd,
 			clean,
-			minify,
 			lint: false,
 		}),
+		minify ? processCSS(content, path.join(cwd, "index.css"), path.join(cwd, "dist", "index-base.min.css"), { cwd, clean }) : Promise.resolve(),
 	]);
 }
 
@@ -423,13 +414,15 @@ async function buildThemes({ cwd = process.cwd(), minify = false, clean = false 
 	return Promise.all(
 		contentData.map(async ({ content, input }) => {
 			const promises = [
-				processCSS(content, path.join(cwd, input), path.join(cwd, "dist", input), { cwd, clean, minify, lint: false })
+				processCSS(content, path.join(cwd, input), path.join(cwd, "dist", input), { cwd, clean, lint: false }),
+				minify ? processCSS(content, path.join(cwd, input), path.join(cwd, "dist", path.basename(input, ".css") + ".min.css"), { cwd, clean, lint: false }) : Promise.resolve(),
 			];
 
 			// Additional processing for the express output because it includes both it and spectrum's content
 			if (path.basename(input, ".css") === "express") {
 				promises.push(
-					processCSS(content, path.join(cwd, input), path.join(cwd, "dist/index-theme.css"), { cwd, clean, minify, lint: false })
+					processCSS(content, path.join(cwd, input), path.join(cwd, "dist", "index-theme.css"), { cwd, clean, lint: false }),
+					minify ? processCSS(content, path.join(cwd, input), path.join(cwd, "dist", "index-theme.min.css"), { cwd, clean, lint: false }) : Promise.resolve(),
 				);
 			}
 
@@ -487,7 +480,8 @@ async function main({
 				if (a.includes("🔍")) return 0;
 				return 1;
 			}).forEach(log => console.log(log));
-		} else console.log("No assets created.".gray);
+		}
+		else console.log("No assets created.".gray);
 
 		console.log(`${"".padStart(30, "-")}`);
 		console.timeEnd(key);
