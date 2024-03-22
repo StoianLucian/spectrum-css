@@ -422,14 +422,12 @@ async function buildPages_compileTemplate(componentName, dirName, file, globalDa
  * @param {TemplateData} [globalData={}]
  * @returns {Promise<string[]>}
  */
-async function buildPages_forPackage(componentName, globalData = {}) {
-	if (!componentName) {
-		return Promise.reject(new Error(`${"✗".red}  No package found for ${dirName}`));
-	}
-
-	const pkgPath = require.resolve(`@spectrum-css/${componentName}/package.json`);
+async function buildPages_forPackage(dep, globalData = {}) {
+	const pkgPath = require.resolve(path.join(dep, "package.json"));
 	const dirName = path.dirname(pkgPath);
-	if (!dirName) {
+	const componentName = getPackageFromPath(dirName);
+
+	if (!componentName) {
 		return Promise.reject(new Error(`${"✗".red}  No package found for ${dirName}`));
 	}
 
@@ -473,8 +471,8 @@ async function build_forPackage(componentName, globalData = {}) {
 
 	/** @todo how do we load dependencies not hosted in the repo? */
 	return Promise.all([
-		buildPages_forPackage(componentName, globalData),
-		copy_Assets(["*.css", "themes/*.css", "*.json"], {
+		buildPages_forPackage(dirName, globalData),
+		copy_Assets(["*.css", "themes/*.css", "*.gz", "*.json"], {
 			cwd: path.join(dirName, "dist"),
 			outputDir,
 			allowEmpty: true,
@@ -736,10 +734,25 @@ async function watch_Styles(file) {
 		return Promise.reject(new Error(`${"✗".red}  No package found for ${file}`));
 	}
 
-	const processorPath = path.join(dirs.root, "tasks/component-builder.js");
+	const dirName = path.join(dirs.components, componentName);
+	if (!fs.existsSync(dirName)) {
+		return Promise.reject(new Error(`${"✗".red}  No local package found for ${componentName}`));
+	}
 
+	const outputDir = path.join(dirs.publish);
+
+	const copyTask = () => copy_Assets(["**"], {
+		cwd: path.join(dirName, "dist"),
+		outputDir,
+		allowEmpty: true,
+		absolute: false,
+	})
+		.then(() => fg.sync(`${dirName}/dist/*.css`));
+
+	const processorPath = path.join(dirs.root, "tasks/component-builder.js");
 	if (!fs.existsSync(processorPath)) {
-		return Promise.reject(new Error(`${"✗".red}  No processing function found for ${relativePrint(processorPath)}`));
+		console.log(`${"✗".red}  No processing function found for ${relativePrint(processorPath)}`);
+		return copyTask();
 	}
 
 	await require(processorPath);

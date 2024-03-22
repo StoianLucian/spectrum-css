@@ -112,22 +112,13 @@ governing permissions and limitations under the License.
   user-select: none;
 
 	.spectrum-Swatch-disabledIcon {
-		inline-size: var(
-			--mod-swatch-disabled-icon-size,
-			var(--spectrum-swatch-disabled-icon-size)
-		);
-		block-size: var(
-			--mod-swatch-disabled-icon-size,
-			var(--spectrum-swatch-disabled-icon-size)
-		);
+		inline-size: var(--mod-swatch-disabled-icon-size, var(--spectrum-swatch-disabled-icon-size));
+		block-size: var(--mod-swatch-disabled-icon-size, var(--spectrum-swatch-disabled-icon-size));
 	}
 
 	&,
 	&::before {
-		border-radius: var(
-			--mod-swatch-border-radius,
-			var(--spectrum-swatch-border-radius)
-		);
+		border-radius: var(--mod-swatch-border-radius, var(--spectrum-swatch-border-radius));
 	}
 
   &.is-selected {
@@ -154,7 +145,7 @@ governing permissions and limitations under the License.
 		}
 
 		&::before {
-			opacity: 1;
+			opacity: 100%;
 		}
 	}
 
@@ -187,20 +178,14 @@ governing permissions and limitations under the License.
       background-image: none;
 
 			&::after {
-				inline-size: var(
-					--mod-swatch-slash-thickness,
-					var(--spectrum-swatch-slash-thickness)
-				);
+				inline-size: var(--mod-swatch-slash-thickness, var(--spectrum-swatch-slash-thickness));
 				content: "";
 				position: absolute;
 				transform: rotate(-45deg);
 				block-size: 200%; /* just needs to be bigger than a swatch */
 				background: var(
 					--highcontrast-swatch-fill-foreground-color,
-					var(
-						--mod-swatch-slash-icon-color,
-						var(--spectrum-swatch-slash-icon-color)
-					)
+					var(--mod-swatch-slash-icon-color, var(--spectrum-swatch-slash-icon-color))
 				);
 			}
 		}
@@ -231,7 +216,7 @@ governing permissions and limitations under the License.
     border-style: solid;
     border-color: var(--highcontrast-swatch-border-color-selected, var(--mod-swatch-border-color-selected, var(--spectrum-swatch-border-color-selected)));
 
-    opacity: 0;
+    opacity: 0%;
 
     pointer-events: none;
   }
@@ -244,7 +229,7 @@ governing permissions and limitations under the License.
 			-2 * var(--mod-swatch-focus-indicator-gap, var(--spectrum-swatch-focus-indicator-gap))
 		);
 
-    opacity: 0;
+    opacity: 0%;
 
     border-width: var(--mod-swatch-focus-indicator-thickness, var(--spectrum-swatch-focus-indicator-thickness));
     border-style: solid;
@@ -256,7 +241,7 @@ governing permissions and limitations under the License.
 
 	&:focus-visible {
 		&::after {
-			opacity: 1;
+			opacity: 100%;
 		}
 	}
 }
