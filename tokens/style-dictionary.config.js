@@ -12,22 +12,39 @@
  */
 
 const path = require("path");
+const {kebabCase} = require("lodash");
 
 const generateFileConfig = require("./utilities/generate-file-config.js");
 const CSSSetsFormatter = require("./utilities/css-sets-formatter.js");
 
 const StyleDictionary = require("style-dictionary");
 
-const NameKebabTransfom = require("style-dictionary-sets").NameKebabTransfom;
-const AttributeSetsTransform =
-	require("style-dictionary-sets").AttributeSetsTransform;
 const CSSOpenTypeTransform =
 	require("style-dictionary-sets").CSSOpenTypeTransform;
 
-
 StyleDictionary.registerTransform(CSSOpenTypeTransform);
-StyleDictionary.registerTransform(NameKebabTransfom);
-StyleDictionary.registerTransform(AttributeSetsTransform);
+
+StyleDictionary.registerTransform({
+  type: "name",
+  name: "name/kebab",
+  transformer: (token, options) => {
+    const tokenSets = token.path.filter((_, idx, array) => array[idx - 1] == "sets");
+    return kebabCase([options.prefix, token.path[0], ...tokenSets].join(" "));
+  },
+});
+
+StyleDictionary.registerTransform({
+  type: "attribute",
+  name: "attribute/sets",
+  matcher: (token) => token.path.includes("sets"),
+  transformer: (token) => {
+    return {
+      sets: token.path.filter(
+        (_, index, array) => array[index - 1] == "sets"
+      ),
+    };
+  },
+});
 StyleDictionary.registerFormat(CSSSetsFormatter);
 
 /**
@@ -40,13 +57,14 @@ const tokensDir = path.dirname(tokensPath);
 // const setNames = ["desktop", "mobile"]; // , "light", "dark", "darkest"];
 
 module.exports = {
-	source: [`${tokensDir}/dist/json/variables.json`],
+	/* Why are we using source? Because it matches style-dictionary format */
+	source: [`${tokensDir}/src/*.json`],
 	platforms: {
 		CSS: {
 			buildPath: "dist/css/",
 			transforms: [
-				AttributeSetsTransform.name,
-				NameKebabTransfom.name,
+				"attribute/sets",
+				"name/kebab",
 				CSSOpenTypeTransform.name,
 			],
 			prefix: "spectrum",
@@ -55,26 +73,19 @@ module.exports = {
 				// ...["spectrum", "express"].map((subSystemName) =>
 				// 	generateFileConfig({ subSystemName })
 				// ),
-				// ...["light", "dark"].map(setName =>
-				// 	["spectrum", "express"].map((subSystemName) =>
-				// 		generateFileConfig({ setName, subSystemName })
-				// 	)
-				// ),
 				// ...["desktop", "mobile"].map((setName) =>
-				// 	generateFileConfig({ setName })
-				// ),
-				// ...["desktop", "mobile"].map((setName) =>
-				// 	generateFileConfig({
-				// 		setName,
-				// 		subSystemName: "spectrum",
-				// 	})
-				// ),
-				// ...["desktop", "mobile"].map((setName) =>
-				// 	generateFileConfig({
-				// 		setName,
-				// 		subSystemName: "express",
-				// 	})
-				// ),
+				// 	[
+				// 		generateFileConfig({ setName }),
+				// 		generateFileConfig({
+				// 			setName,
+				// 			subSystemName: "spectrum",
+				// 		}),
+				// 		generateFileConfig({
+				// 			setName,
+				// 			subSystemName: "express",
+				// 		}),
+				// 	]
+				// ).flat(),
 			],
 		},
 	},

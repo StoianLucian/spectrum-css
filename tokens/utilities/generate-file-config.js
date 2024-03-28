@@ -11,6 +11,9 @@
  * governing permissions and limitations under the License.
  */
 
+const fs = require("fs");
+const path = require("path");
+
 /**
  *
  * @param {{}} config
@@ -40,18 +43,16 @@ module.exports = function ({ scale, theme } = {}) {
 	if (!isSpectrum) selector += `.spectrum--${theme}`;
 
 	return {
-		format: "css/sets",
-		options: {
-			showFileHeader: false,
-			outputReferences: true,
-			selector,
-			sets: [scale, theme].filter(Boolean),
-		},
+		// className,
+		// packageName,
 		destination: !isScale && isShared ? "global-vars.css" : `${theme ? `${theme}/` : ""}${scope}-vars.css`,
+		format: "css/sets",
 		// Returns true if the token should be included in the rendered data set
-		filter: ({ path }) => {
+		filter: (token) => {
+			const { path } = token;
+
 			// Fetch the sets for this token
-			const tokenSets = path.filter((_, idx, array) => array[idx - 1] == "sets");
+			const tokenSets = [...new Set(path.filter((_, idx, array) => array[idx - 1] == "sets"))];
 
 			/* We don't process wireframe values */
 			if (tokenSets.includes("wireframe")) return false;
@@ -65,6 +66,17 @@ module.exports = function ({ scale, theme } = {}) {
 
 			// Everything remaining is included if it's a "shared" output file
 			return isShared;
+		},
+		options: {
+			showFileHeader: true,
+			fileHeader: () => {
+				const copyright = fs.readFileSync(path.join(__dirname, "../../COPYRIGHT"));
+				return [copyright, "/* This file is generated from @adobe/spectrum-tokens; ${dictionary.file} */"];
+			},
+			outputReferences: false,
+			// [key: string]: any
+			selector,
+			sets: [scale, theme].filter(Boolean),
 		},
 	};
 };

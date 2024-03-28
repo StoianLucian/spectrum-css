@@ -26,48 +26,63 @@ module.exports = {
 	name: "css/sets",
 	// dictionary -> keys: 'properties', 'allProperties', 'tokens', 'allTokens', 'getReferences', 'usesReference', '_properties'
 	formatter: ({ dictionary, platform, _, options }) => {
-		const valueFormatter = (token, context = undefined) => {
+		// Remove curly braces from the output
+		const cleanResult = (result) => {
+			if (result.startsWith("{") && result.endsWith("}")) {
+				return `var(--${platform.prefix}-${result.replace(/(\{|\})/g, "")})`;
+			} else return result;
+		};
+
+		const valueFormatter = (token, { key, context } = {}) => {
 			/* We can't do anything without a token value */
 			if (!token) return;
 
+			console.log(key, token, context);
+			if (typeof token === "string") return cleanResult(token);
+			if (typeof token === "object") {
+				const alias = token.path?.[0];
+				if (alias && alias !== key) {
+					return cleanResult(`{${alias}}`);
+				}
+			}
+
+			if (token.ref) {
+				if (typeof token.ref === "string") return token.ref;
+				if (context) {
+					let value = token.ref.sets[context];
+
+					if (value && value.path && value.path.length) {
+						return cleanResult(value.path[0]);
+					}
+
+					value = token.ref.sets[platform.prefix].ref.sets[context];
+
+					if (value && value.path && value.path.length) {
+						return cleanResult(value.path[0]);
+					}
+				}
+			}
+
 			/* Check if the original values used a reference value */
-			if (token.original && !token.original?.ref && typeof token.value !== "undefined") {
-				return token.value;
-			}
-
-			if (context && token.sets && token.sets[context]) {
-				return valueFormatter(token.sets[context], context);
-			} else if (context && token.sets && token.sets.spectrum && token.sets.spectrum.sets[context]) {
-				return valueFormatter(token.sets.spectrum.sets[context], context);
-			}
-
-			// console.log('valueFormatter', token);
-
-			/* If it was a referenced value, let's determine the custom property name */
-			const resultParts = token.original.ref
-				.substring(1, token.original.ref.length - 1)
-				.split(".");
-
-			/* Remove the prefix if it appears in the result */
-			if (platform.prefix) resultParts.splice(0, 0, platform.prefix);
-
-			return `var(--${resultParts.join("-")})`;
+			if (token.value) return token.value;
 		};
 
 		const resultSet = new Map();
 
-		Object.entries(dictionary.properties).forEach(([key, value]) => {
+		Object.entries(dictionary.tokens).forEach(([key, token]) => {
 			const name = `${platform.prefix}-${key}`;
-			const variants = value.sets ? Object.keys(value.sets) : [];
 
-			if (key.includes('background-layer-1-color')) {
-				console.log(dictionary.usesReference(value), dictionary.getReferences(value));
-				console.log(value.sets.light.sets.light, value.sets.light.ref.sets.light);
+			if (typeof token.value === "string") {
+				resultSet.set(name, cleanResult(token.value));
+				return;
 			}
 
+			const sets = token.value?.sets;
+			const variants = sets ? Object.keys(sets) : [];
+
 			if (variants.length && ["light", "dark"].some(c => variants.includes(c))) {
-				const lightValue = valueFormatter(value.sets.light, 'light');
-				const darkValue = valueFormatter(value.sets.dark, 'dark');
+				const lightValue = valueFormatter(sets.light, { key, context: 'light' });
+				const darkValue = valueFormatter(sets.dark, { key, context: 'dark' });
 
 				// If the light & dark values are the same, just use the first value
 				if (lightValue === darkValue) {
@@ -82,42 +97,25 @@ module.exports = {
 			/* Skip this entry if it has variants other than whats supported here */
 			if (variants.length) return;
 
-			resultSet.set(name, valueFormatter(value));
+			resultSet.set(name, valueFormatter(token.value, { key, prefix: platform.prefix }));
 		});
-
-		// dictionary.allTokens.forEach((token) => {
-		// 	const name = new Set([
-		// 		platform.prefix,
-		// 		...(token.path?.filter(part => part !== "sets") ?? []),
-		// 	].filter(Boolean));
-
-		// 	/* Convert light/dark to the light/dark function */
-		// 	if (["light", "dark"].some(color => name.has(color))) {
-		// 		// Pull out the light/dark string from the variable name
-		// 		const customPropertyName = [...name].filter(item => !["light", "dark"].some(color => item === color));
-
-		// 		let data = {};
-		// 		if (resultSet.has(customPropertyName.join("-"))) {
-		// 			data = resultSet.get(customPropertyName.join("-"));
-		// 		}
-
-		// 		resultSet.set(customPropertyName.join("-"), {
-		// 			...data,
-		// 			[name.has("dark") ? "dark" : "light"]: valueFormatter(token, platform, dictionary),
-		// 		});
-		// 	} else {
-		// 		resultSet.set([...name].join("-"), valueFormatter(token, platform, dictionary));
-		// 	}
-		// });
 
 		const resultList = [];
 		resultSet.forEach((value, key) => {
+			if (!value) return;
+
 			// Just add it to the result list
 			if (typeof value === "string") {
 				resultList.push(`--${key}: ${value}`);
-			} else {
-				resultList.push(`--${key}: light-dark(${value.light}, ${value.dark})`);
+				return;
 			}
+
+			if (value.light && value.dark) {
+				resultList.push(`--${key}: light-dark(${value.light}, ${value.dark})`);
+				return;
+			}
+
+			console.log("Unknown value", value);
 		});
 
 		const selector = options.selector ? options.selector : ":root";
