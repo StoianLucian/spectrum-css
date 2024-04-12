@@ -69,70 +69,94 @@ export default {
 			type: "migrated",
 		},
 	},
+	decorators: [
+		(Story, context) => html`
+			<style>
+				.spectrum-Detail { display: inline-block; }
+				.spectrum-Typography > div {
+					border: 1px solid var(--spectrum-gray-200);
+					border-radius: 4px;
+					padding: 1em;
+				}
+			</style>
+			<div
+				style=${styleMap({
+					display: "flex",
+					flexDirection: "column",
+					alignItems: "flex-start",
+					gap: "1.0rem",
+					"--mod-detail-margin-end": ".3rem",
+				})}
+			>
+				${Story(context)}
+			</div>
+		`,
+	],
 };
 
 const AlertBannerGroup = (args) => {
-	return html`
-		<div style="display: flex; flex-direction: column; gap: 1rem">
-			${!window.isChromatic() ? Template(args) : html`
-				<div class="spectrum-Typography">
-					${Typography({
-						semantics: "detail",
-						size: "l",
-						content: ["All variants with button, including wrapping"],
-					})}
-					<div
-						style=${styleMap({
-							display: "flex",
-							flexDirection: "column",
-							gap: ".3rem",
-						})}
-					>
-						${Template(args)}
-						${Template({
-							...args,
-							variant: "info",
-							text: "Your trial will expire in 3 days. Once it expires your files will be saved and ready for you to open again once you have purchased the software.",
-						})}
-						${Template({
-							...args,
-							variant: "negative",
-							text: "Connection interupted. Check your network to continue.",
-						})}
-					</div>
-				</div>
-				<div class="spectrum-Typography">
-					${Typography({
-						semantics: "detail",
-						size: "l",
-						content: ["All variants without button"],
-					})}
-					<div
-						style=${styleMap({
-							display: "flex",
-							flexDirection: "column",
-							gap: ".3rem",
-						})}
-					>
-						${Template({
-							...args,
-							actionButtonText: "",
-						})}
-						${Template({
-							...args,
-							variant: "info",
-							text: "Your trial will expire in 3 days. Once it expires your files will be saved and ready for you to open again once you have purchased the software.",
-							actionButtonText: "",
-						})}
-						${Template({
-							...args,
-							variant: "negative",
-							text: "Connection interupted. Check your network to continue.",
-							actionButtonText: "",
-						})}
-					</div>
-				</div>
-			`}
+	return !window.isChromatic() ? Template(args) : html`
+		<div class="spectrum-Typography">
+			${Typography({
+				semantics: "detail",
+				size: "l",
+				content: ["All variants with button, including wrapping"],
+			})}
+			<div
+				style=${styleMap({
+					display: "flex",
+					flexDirection: "column",
+					gap: "0.75rem",
+				})}
+			>
+				${Template(args)}
+				${Template({
+					...args,
+					variant: "info",
+					text: "Your trial will expire in 3 days. Once it expires your files will be saved and ready for you to open again once you have purchased the software.",
+				})}
+				${Template({
+					...args,
+					variant: "negative",
+					text: "Connection interupted. Check your network to continue.",
+				})}
+				${Template({
+					...args,
+					isOpen: false,
+					text: "This alert banner should never be displayed in VRTs. This is to test that it is not displayed when there is no is-open class applied.",
+				})}
+			</div>
+		</div>
+		<div class="spectrum-Typography">
+			${Typography({
+				semantics: "detail",
+				size: "l",
+				content: ["All variants without button"],
+			})}
+			<div
+				style=${styleMap({
+					display: "flex",
+					flexDirection: "column",
+					gap: "0.75rem",
+				})}
+			>
+				${Template({
+					...args,
+					actionButtonText: "",
+				})}
+				${Template({
+					...args,
+					variant: "info",
+					text: "Your trial will expire in 3 days. Once it expires your files will be saved and ready for you to open again once you have purchased the software.",
+					actionButtonText: "",
+				})}
+				${Template({
+					...args,
+					variant: "negative",
+					text: "Connection interupted. Check your network to continue.",
+					actionButtonText: "",
+				})}
+			</div>
 		</div>
 	`;
 };
