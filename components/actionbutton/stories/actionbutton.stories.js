@@ -75,33 +75,9 @@ export default {
 			},
 			control: "boolean",
 		},
-		isHovered: {
-			name: "Hovered",
-			type: { name: "boolean" },
-			table: {
-				type: { summary: "boolean" },
-				category: "State",
-			},
-			control: "boolean",
-		},
-		isFocused: {
-			name: "Focused",
-			type: { name: "boolean" },
-			table: {
-				type: { summary: "boolean" },
-				category: "State",
-			},
-			control: "boolean",
-		},
-		isActive: {
-			name: "Active",
-			type: { name: "boolean" },
-			table: {
-				type: { summary: "boolean" },
-				category: "State",
-			},
-			control: "boolean",
-		},
+		isHovered: { table: { disable: true } },
+		isFocused: { table: { disable: true } },
+		isActive: { table: { disable: true } },
 		hideLabel: {
 			name: "Hide label",
 			type: { name: "boolean" },
