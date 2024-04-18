@@ -180,24 +180,6 @@ governing permissions and limitations under the License.
 	--spectrum-search-text-to-icon: var(--spectrum-text-to-visual-300);
 }
 
-@media (forced-colors: active) {
-	.spectrum-Search .spectrum-Search-textfield,
-	.spectrum-Search .spectrum-Search-textfield .spectrum-Search-input {
-		--highcontrast-search-color-default: CanvasText;
-		--highcontrast-search-color-hover: CanvasText;
-		--highcontrast-search-color-focus: CanvasText;
-		--highcontrast-search-color-disabled: GrayText;
-	}
-
-	.spectrum-Search .spectrum-Search-clearButton {
-		.spectrum-ClearButton-fill {
-			/* Avoid button background color overlapping on border. */
-			forced-color-adjust: none;
-			background-color: transparent;
-		}
-	}
-}
-
 /* Standard / Default */
 .spectrum-Search {
 	display: inline-block;
@@ -346,5 +328,23 @@ governing permissions and limitations under the License.
 					var(--spectrum-search-button-inline-size)
 				) - var(--mod-search-border-width, var(--spectrum-search-border-width))
 		);
+	}
+}
+
+@media (forced-colors: active) {
+	.spectrum-Search .spectrum-Search-textfield,
+	.spectrum-Search .spectrum-Search-textfield .spectrum-Search-input {
+		--highcontrast-search-color-default: CanvasText;
+		--highcontrast-search-color-hover: CanvasText;
+		--highcontrast-search-color-focus: CanvasText;
+		--highcontrast-search-color-disabled: GrayText;
+	}
+
+	.spectrum-Search .spectrum-Search-clearButton {
+		.spectrum-ClearButton-fill {
+			/* Avoid button background color overlapping on border. */
+			forced-color-adjust: none;
+			background-color: transparent;
+		}
 	}
 }
