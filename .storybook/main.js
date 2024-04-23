@@ -40,8 +40,9 @@ module.exports = {
 		"@storybook/addon-interactions",
 		// https://www.chromatic.com/docs/visual-testing-addon/
 		"@chromaui/addon-visual-tests",
+		// Conditionally add the addon-designs
 		// https://storybook.js.org/addons/@storybook/addon-designs/
-    	"@storybook/addon-designs",
+		...(process.env.NODE_ENV === 'development' ? ['@storybook/addon-designs'] : []),
 	],
 	core: {
 		disableTelemetry: true,
