@@ -169,6 +169,16 @@ governing permissions and limitations under the License.
   }
 }
 
+.spectrum-Picker--quiet {
+  --spectrum-picker-background-color-default: transparent;
+  --spectrum-picker-background-color-default-open: transparent;
+  --spectrum-picker-background-color-hover: transparent;
+  --spectrum-picker-background-color-hover-open: transparent;
+  --spectrum-picker-background-color-active: transparent;
+  --spectrum-picker-background-color-key-focus: transparent;
+  --spectrum-picker-background-color-disabled: transparent;
+}
+
 .spectrum-Picker {
   @extend %spectrum-BaseButton;
 
@@ -273,6 +283,26 @@ governing permissions and limitations under the License.
     }
   }
 
+  &.is-open:not(.spectrum-Picker--quiet, :disabled, .is-disabled) {
+    color: var(--highcontrast-picker-content-color-default, var(--mod-picker-font-color-default-open, var(--spectrum-picker-font-color-default-open)));
+    background-color: var(--highcontrast-picker-background-color, var(--mod-picker-background-color-default-open, var(--spectrum-picker-background-color-default-open)));
+    border-color: var(--highcontrast-picker-border-color-default, var(--mod-picker-border-default-open, var(--spectrum-picker-border-color-default-open)));
+  
+    &:hover {
+      color: var(--highcontrast-picker-content-color-default, var(--mod-picker-font-color-hover-open, var(--spectrum-picker-font-color-hover-open)));
+      background-color: var(--highcontrast-picker-background-color, var(--mod-picker-background-color-hover-open, var(--spectrum-picker-background-color-hover-open)));
+      border-color: var(--highcontrast-picker-border-color-hover, var(--mod-picker-border-color-hover-open, var(--spectrum-picker-border-color-hover-open)));
+  
+      .spectrum-Picker-menuIcon {
+        color: var(--highcontrast-picker-content-color-default, var(--mod-picker-icon-color-hover-open, var(--spectrum-picker-icon-color-hover-open)));
+      }
+    }
+  
+    .spectrum-Picker-menuIcon {
+      color: var(--highcontrast-picker-content-color-default, var(--mod-picker-icon-color-default-open, var(--spectrum-picker-icon-color-default-open)));
+    }
+  }
+
   &.is-invalid:not(:disabled, .is-disabled) {
     border-color: var(--highcontrast-picker-border-color-default, var(--mod-picker-border-color-error-default, var(--spectrum-picker-border-color-error-default)));
 
@@ -308,57 +338,40 @@ governing permissions and limitations under the License.
     }
   }
 
-  &.is-loading, &.is-invalid {
+  &.is-loading,
+  &.is-invalid {
     .spectrum-Picker-label {
       margin-inline-end: var(--mod-picker-spacing-text-to-icon-inline-end, var(--spectrum-picker-spacing-text-to-icon-inline-end));
     }
   }
+}
 
-  &:disabled,
-  &.is-disabled {
-    cursor: default;
-    background-color: var(--highcontrast-picker-background-color, var(--mod-picker-background-color-disabled, var(--spectrum-picker-background-color-disabled)));
-    border-color: var(--highcontrast-picker-border-color-disabled, transparent);
+/* Optional icon that appears before the text within the picker. */
+.spectrum-Picker .spectrum-Picker-icon {
+  flex-shrink: 0;
+  margin-inline-end: var(--mod-picker-spacing-text-to-icon, var(--spectrum-picker-spacing-text-to-icon));
+}
+
+/* Disabled state */
+.spectrum-Picker.spectrum-Picker:disabled,
+.spectrum-Picker.is-disabled {
+  cursor: default;
+  background-color: var(--highcontrast-picker-background-color, var(--mod-picker-background-color-disabled, var(--spectrum-picker-background-color-disabled)));
+  border-color: var(--highcontrast-picker-border-color-disabled, transparent);
+  color: var(--highcontrast-picker-content-color-disabled, var(--mod-picker-font-color-disabled, var(--spectrum-picker-font-color-disabled)));
+
+  .spectrum-Picker-icon,
+  .spectrum-Picker-menuIcon,
+  .spectrum-Picker-validationIcon {
+    color: var(--highcontrast-picker-content-color-disabled, var(--mod-picker-icon-color-disabled, var(--spectrum-picker-icon-color-disabled)));
+  }
+
+  .spectrum-Picker-label.is-placeholder {
     color: var(--highcontrast-picker-content-color-disabled, var(--mod-picker-font-color-disabled, var(--spectrum-picker-font-color-disabled)));
-
-    .spectrum-Picker-icon,
-    .spectrum-Picker-menuIcon,
-    .spectrum-Picker-validationIcon {
-      color: var(--highcontrast-picker-content-color-disabled, var(--mod-picker-icon-color-disabled, var(--spectrum-picker-icon-color-disabled)));
-    }
-
-    .spectrum-Picker-label.is-placeholder {
-      color: var(--highcontrast-picker-content-color-disabled, var(--mod-picker-font-color-disabled, var(--spectrum-picker-font-color-disabled)));
-    }
-  }
-
-  .spectrum-Picker-icon {
-    flex-shrink: 0;
-    margin-inline-end: var(--mod-picker-spacing-text-to-icon, var(--spectrum-picker-spacing-text-to-icon));
   }
 }
 
-.spectrum-Picker.is-open:not(.spectrum-Picker--quiet) {
-  color: var(--highcontrast-picker-content-color-default, var(--mod-picker-font-color-default-open, var(--spectrum-picker-font-color-default-open)));
-  background-color: var(--highcontrast-picker-background-color, var(--mod-picker-background-color-default-open, var(--spectrum-picker-background-color-default-open)));
-  border-color: var(--highcontrast-picker-border-color-default, var(--mod-picker-border-default-open, var(--spectrum-picker-border-color-default-open)));
-
-  &:hover {
-    color: var(--highcontrast-picker-content-color-default, var(--mod-picker-font-color-hover-open, var(--spectrum-picker-font-color-hover-open)));
-    background-color: var(--highcontrast-picker-background-color, var(--mod-picker-background-color-hover-open, var(--spectrum-picker-background-color-hover-open)));
-    border-color: var(--highcontrast-picker-border-color-hover, var(--mod-picker-border-color-hover-open, var(--spectrum-picker-border-color-hover-open)));
-
-    .spectrum-Picker-menuIcon {
-      color: var(--highcontrast-picker-content-color-default, var(--mod-picker-icon-color-hover-open, var(--spectrum-picker-icon-color-hover-open)));
-    }
-  }
-
-  .spectrum-Picker-menuIcon {
-    color: var(--highcontrast-picker-content-color-default, var(--mod-picker-icon-color-default-open, var(--spectrum-picker-icon-color-default-open)));
-  }
-}
-
-/* Text within the Picker (value) */
+/* Text within the Picker (current value or placeholder) */
 .spectrum-Picker-label {
   flex: 1 1 auto;
   white-space: nowrap;
@@ -391,7 +404,7 @@ governing permissions and limitations under the License.
   }
 }
 
-/* The picker chevron */
+/* Disclosure icon (chevron) */
 .spectrum-Picker-menuIcon {
   display: inline-block;
   position: relative;
@@ -435,7 +448,6 @@ governing permissions and limitations under the License.
   padding-inline: var(--mod-picker-spacing-edge-to-text-quiet, var(--spectrum-picker-spacing-edge-to-text-quiet));
   margin-block-start: calc( var(--mod-picker-spacing-label-to-picker-quiet, var(--spectrum-picker-spacing-label-to-picker-quiet)) + (1px));
   color: var(--highcontrast-picker-content-color-default, var(--mod-picker-font-color-default, var(--spectrum-picker-font-color-default)));
-  background-color: var(--highcontrast-picker-background-color, transparent);
 
   &.spectrum-Picker--sideLabel {
     margin-block-start: 0;
@@ -451,14 +463,8 @@ governing permissions and limitations under the License.
     inline-size: auto;
   }
 
-  &:hover {
-    background-color: var(--highcontrast-picker-background-color, transparent);
-  }
-
   &:focus-visible,
   &.is-keyboardFocused {
-    background-color: var(--highcontrast-picker-background-color, transparent);
-
     /* Focus indicator changes from a ring to a line underneath. */
     &::after {
       border: none;
@@ -466,16 +472,6 @@ governing permissions and limitations under the License.
       box-shadow: 0 var(--mod-picker-focus-indicator-thickness, var(--spectrum-picker-focus-indicator-thickness)) 0 0 var(--highcontrast-picker-focus-indicator-color, var(--mod-picker-focus-indicator-color, var(--spectrum-picker-focus-indicator-color)));
       margin: calc((var(--mod-picker-focus-indicator-gap, var(--spectrum-picker-focus-indicator-gap)) + var(--mod-picker-border-width, var(--spectrum-picker-border-width))) * -1) 0;
     }
-  }
-
-  &:active,
-  &.is-open {
-    background-color: var(--highcontrast-picker-background-color, transparent);
-  }
-
-  &:disabled,
-  &.is-disabled {
-    background-color: var(--highcontrast-picker-background-color, transparent);
   }
 }
 
