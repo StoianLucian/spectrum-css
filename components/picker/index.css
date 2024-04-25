@@ -251,6 +251,11 @@ governing permissions and limitations under the License.
   &:active {
     background-color: var(--highcontrast-picker-background-color, var(--mod-picker-background-color-active, var(--spectrum-picker-background-color-active)));
     border-color: var(--highcontrast-picker-border-color-default, var(--mod-picker-border-active, var(--spectrum-picker-border-color-active)));
+    transform: perspective(max(
+        var(--spectrum-downstate-height, var(--mod-picker-block-size, var(--spectrum-picker-block-size))),
+        var(--spectrum-downstate-width, var(--mod-picker-inline-size, var(--spectrum-picker-inline-size))) * var(--spectrum-component-size-width-ratio-down)
+      ))
+      translateZ(var(--spectrum-component-size-difference-down));
 
     /* Focus indicator */
     &::after {
