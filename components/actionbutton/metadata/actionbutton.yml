@@ -17,7 +17,7 @@ sections:
       Action button now uses Spectrum 2 tokens and specifications. A few notable changes:
       - Medium is now the default size and `.spectrum-Switch--sizeM` has been removed.
       - Includes the Spectrum 2 down state transform.
-      - The component border was not removed to continue support for Windows High Contrast Mode (WHCM), but the color was adjusted to `transparent` and the mod custom properties were removed so as not to interfere with WHCM accessibility.
+      - The component border was not removed and its color was changed to `transparent` in order to continue support for Windows High Contrast / forced colors, which still shows a border. The mod custom properties for border were removed to avoid interference with Windows High Contrast / forced colors accessibility.
       - Background and content colors were updated.
       - Mod custom properties have been adjusted:
         - Renamed:
