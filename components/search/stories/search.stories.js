@@ -4,10 +4,10 @@ import { styleMap } from "lit/directives/style-map.js";
 import { Template } from "./template.js";
 
 export default {
-	title: "Components/Search",
+	title: "Components/Search field",
 	description:
 		"This component contains a single input field with both a magnifying glass icon and a \"reset\" button displayed within it.",
-	component: "Search",
+	component: "Search field",
 	argTypes: {
 		size: {
 			name: "Size",
