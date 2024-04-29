@@ -10,7 +10,6 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-@import "./themes/express.css";
 @import "@spectrum-css/commons/basebutton.css";
 
 .spectrum-Picker {
@@ -20,12 +19,13 @@ governing permissions and limitations under the License.
   --spectrum-picker-placeholder-font-style: var(--spectrum-default-font-style);
   --spectrum-picker-line-height: var(--spectrum-line-height-100);
 
-  /* height */
+  /* dimensions */
   --spectrum-picker-block-size: var(--spectrum-component-height-100);
-  --spectrum-picker-inline-size: var(--spectrum-field-width);
+  --spectrum-picker-inline-size: var(--spectrum-field-default-width-medium);
 
   /* border */
-  --spectrum-picker-border-radius: var(--spectrum-corner-radius-100);
+  --spectrum-picker-border-radius: var(--spectrum-corner-radius-medium-size-medium);
+  --spectrum-picker-border-width: var(--spectrum-border-width-100);
 
   /* spacing */
   --spectrum-picker-spacing-top-to-text: var(--spectrum-component-top-to-text-100);
@@ -53,6 +53,20 @@ governing permissions and limitations under the License.
   --spectrum-picker-animation-duration: var(--spectrum-animation-duration-100);
 
   /* color */
+  --spectrum-picker-background-color-default: var(--spectrum-gray-100);
+  --spectrum-picker-background-color-default-open: var(--spectrum-gray-200);
+  --spectrum-picker-background-color-hover: var(--spectrum-gray-200);
+  --spectrum-picker-background-color-hover-open: var(--spectrum-gray-200);
+  --spectrum-picker-background-color-active: var(--spectrum-gray-200);
+  --spectrum-picker-background-color-key-focus: var(--spectrum-gray-200);
+
+  --spectrum-picker-border-color-default: transparent;
+  --spectrum-picker-border-color-default-open: transparent;
+  --spectrum-picker-border-color-hover: transparent;
+  --spectrum-picker-border-color-hover-open: transparent;
+  --spectrum-picker-border-color-active: transparent;
+  --spectrum-picker-border-color-key-focus: transparent;
+
   --spectrum-picker-font-color-default: var(--spectrum-neutral-content-color-default);
   --spectrum-picker-font-color-default-open: var(--spectrum-neutral-content-color-focus);
   --spectrum-picker-font-color-hover: var(--spectrum-neutral-content-color-hover);
@@ -80,7 +94,7 @@ governing permissions and limitations under the License.
   --spectrum-picker-font-color-disabled: var(--spectrum-disabled-content-color);
   --spectrum-picker-icon-color-disabled: var(--spectrum-disabled-content-color);
 
-  /* special cases for focus indicator */
+  /* focus indicator */
   --spectrum-picker-focus-indicator-gap: var(--spectrum-focus-indicator-gap);
   --spectrum-picker-focus-indicator-thickness: var(--spectrum-focus-indicator-thickness);
   --spectrum-picker-focus-indicator-color: var(--spectrum-focus-indicator-color);
@@ -89,6 +103,8 @@ governing permissions and limitations under the License.
 .spectrum-Picker--sizeS {
   --spectrum-picker-font-size: var(--spectrum-font-size-75);
   --spectrum-picker-block-size: var(--spectrum-component-height-75);
+  --spectrum-picker-inline-size: var(--spectrum-field-default-width-small);
+  --spectrum-picker-border-radius: var(--spectrum-corner-radius-medium-size-small);
   --spectrum-picker-spacing-top-to-text-side-label-quiet: var(--spectrum-component-top-to-text-75);
   --spectrum-picker-spacing-top-to-text: var(--spectrum-component-top-to-text-75);
   --spectrum-picker-spacing-bottom-to-text: var(--spectrum-component-bottom-to-text-75);
@@ -109,7 +125,9 @@ governing permissions and limitations under the License.
 
 .spectrum-Picker--sizeL {
   --spectrum-picker-font-size: var(--spectrum-font-size-200);
+  --spectrum-picker-inline-size: var(--spectrum-field-default-width-large);
   --spectrum-picker-block-size: var(--spectrum-component-height-200);
+  --spectrum-picker-border-radius: var(--spectrum-corner-radius-medium-size-large);
   --spectrum-picker-spacing-top-to-text-side-label-quiet: var(--spectrum-component-top-to-text-200);
   --spectrum-picker-spacing-top-to-text: var(--spectrum-component-top-to-text-200);
   --spectrum-picker-spacing-bottom-to-text: var(--spectrum-component-bottom-to-text-200);
@@ -130,7 +148,9 @@ governing permissions and limitations under the License.
 
 .spectrum-Picker--sizeXL {
   --spectrum-picker-font-size: var(--spectrum-font-size-300);
+  --spectrum-picker-inline-size: var(--spectrum-field-default-width-extra-large);
   --spectrum-picker-block-size: var(--spectrum-component-height-300);
+  --spectrum-picker-border-radius: var(--spectrum-corner-radius-medium-size-extra-large);
   --spectrum-picker-spacing-top-to-text-side-label-quiet: var(--spectrum-component-top-to-text-300);
   --spectrum-picker-spacing-top-to-text: var(--spectrum-component-top-to-text-300);
   --spectrum-picker-spacing-bottom-to-text: var(--spectrum-component-bottom-to-text-300);
@@ -149,52 +169,19 @@ governing permissions and limitations under the License.
   }
 }
 
-/* Windows high contrast mode */
-@media (forced-colors: active) {
-  .spectrum-Picker {
-    --highcontrast-picker-focus-indicator-color: Highlight;
-
-    --highcontrast-picker-border-color-default: ButtonBorder;
-    --highcontrast-picker-border-color-hover: Highlight;
-    --highcontrast-picker-border-color-disabled: GrayText;
-
-    --highcontrast-picker-content-color-default: ButtonText;
-    --highcontrast-picker-content-color-disabled: GrayText;
-    --highcontrast-picker-background-color: ButtonFace;
-
-    &:focus-visible,
-    &.is-keyboardFocused {
-      --highcontrast-picker-border-color-hover: ButtonText;
-    }
-
-    /* Focus indicator */
-    &::after {
-      /* Make sure default transparent border stays transparent. */
-      forced-color-adjust: none;
-    }
-
-    .spectrum-Picker-label {
-      /* Remove additional text backplate added in WHCM (Edge). */
-      forced-color-adjust: none;
-    }
-  }
-}
-
 .spectrum-Picker {
   @extend %spectrum-BaseButton;
 
-  /* Layout */
   display: flex;
   box-sizing: border-box;
 
-  /* Minimum width is 2 times the height */
   max-inline-size: 100%;
   min-inline-size: calc(var(--spectrum-picker-minimum-width-multiplier) * var(--mod-picker-block-size, var(--spectrum-picker-block-size)));
   inline-size: var(--mod-picker-inline-size, var(--spectrum-picker-inline-size));
   block-size: var(--mod-picker-block-size, var(--spectrum-picker-block-size));
-  padding-block: 0;
-  margin-block-start: var(--mod-picker-spacing-label-to-picker, var(--spectrum-picker-spacing-label-to-picker));
 
+  margin-block-start: var(--mod-picker-spacing-label-to-picker, var(--spectrum-picker-spacing-label-to-picker));
+  padding-block: 0;
   padding-inline-start: var(--mod-picker-spacing-edge-to-text, var(--spectrum-picker-spacing-edge-to-text));
   padding-inline-end: var(--mod-picker-spacing-edge-to-disclosure-icon, var(--spectrum-picker-spacing-edge-to-disclosure-icon));
 
@@ -323,9 +310,7 @@ governing permissions and limitations under the License.
 
   &.is-loading, &.is-invalid {
     .spectrum-Picker-label {
-      /* @deprecation --mod-picker-spacing-text-to-alert-icon-inline-start has been renamed to --mod-picker-spacing-text-to-icon-inline-end
-	   and will be removed in a future version. */
-      margin-inline-end: var(--mod-picker-spacing-text-to-icon-inline-end, var(--mod-picker-spacing-text-to-alert-icon-inline-start, var(--spectrum-picker-spacing-text-to-icon-inline-end)));
+      margin-inline-end: var(--mod-picker-spacing-text-to-icon-inline-end, var(--spectrum-picker-spacing-text-to-icon-inline-end));
     }
   }
 
@@ -373,10 +358,9 @@ governing permissions and limitations under the License.
   }
 }
 
+/* Text within the Picker (value) */
 .spectrum-Picker-label {
-  /* Be the biggest, but also shrink! */
   flex: 1 1 auto;
-
   white-space: nowrap;
   overflow: hidden;
 
@@ -498,4 +482,35 @@ governing permissions and limitations under the License.
 .spectrum-Picker--sideLabel {
   display: inline-flex;
   vertical-align: top;
+}
+
+/* Forced colors / high contrast mode */
+@media (forced-colors: active) {
+  .spectrum-Picker {
+    --highcontrast-picker-focus-indicator-color: Highlight;
+
+    --highcontrast-picker-border-color-default: ButtonBorder;
+    --highcontrast-picker-border-color-hover: Highlight;
+    --highcontrast-picker-border-color-disabled: GrayText;
+
+    --highcontrast-picker-content-color-default: ButtonText;
+    --highcontrast-picker-content-color-disabled: GrayText;
+    --highcontrast-picker-background-color: ButtonFace;
+
+    &:focus-visible,
+    &.is-keyboardFocused {
+      --highcontrast-picker-border-color-hover: ButtonText;
+    }
+
+    /* Focus indicator */
+    &::after {
+      /* Make sure default transparent border stays transparent. */
+      forced-color-adjust: none;
+    }
+
+    .spectrum-Picker-label {
+      /* Remove additional text backplate added in WHCM (Edge). */
+      forced-color-adjust: none;
+    }
+  }
 }
