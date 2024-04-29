@@ -1,7 +1,9 @@
 import { html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
+import { when } from "lit/directives/when.js";
 
 import { Template as ClearButton } from "@spectrum-css/clearbutton/stories/template.js";
+import { Template as HelpText } from "@spectrum-css/helptext/stories/template.js";
 import { Template as TextField } from "@spectrum-css/textfield/stories/template.js";
 
 import "../index.css";
@@ -14,6 +16,8 @@ export const Template = ({
 	isKeyboardFocused = false,
 	inputValue = "",
 	size,
+	showHelpText = false,
+	helpTextLabel = "",
 	...globals
 }) => html`
 	<form
@@ -30,12 +34,12 @@ export const Template = ({
 			...globals,
 			isDisabled,
 			size,
-			customClasses: [`${rootClass}-textfield`, isFocused && "is-focused"],
+			customClasses: [`${rootClass}-textfield`, isFocused && "is-focused", isKeyboardFocused && "is-keyboardFocused"],
 			iconName: "Magnify",
 			type: "search",
 			placeholder: "Search",
 			name: "search",
-			customInputClasses: [`${rootClass}-input`, isKeyboardFocused && "is-keyboardFocused"],
+			customInputClasses: [`${rootClass}-input`],
 			customIconClasses: [`${rootClass}-icon`],
 			autocomplete: false,
 			value: inputValue,
@@ -46,5 +50,12 @@ export const Template = ({
 			size,
 			customClasses: [`${rootClass}-clearButton`],
 		})}
+		${when(showHelpText, () =>
+			HelpText({
+				...globals,
+				size,
+				text: helpTextLabel,
+			})
+		)}
 	</form>
 `;

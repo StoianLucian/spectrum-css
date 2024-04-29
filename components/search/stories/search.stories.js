@@ -45,11 +45,30 @@ export default {
 			table: { disable: true },
 			type: { name: "string" },
 		},
+		showHelpText: {
+			name: "Show help text",
+			type: { name: "boolean" },
+			table: {
+				type: { summary: "boolean" },
+				category: "Content"
+			}
+		},
+		helpTextLabel: {
+			name: "Help text label",
+			type: { name: "string" },
+			table: {
+				type: { summary: "string" },
+				category: "Content",
+			},
+			if: { arg: "showHelpText", truthy: true },
+		}
 	},
 	args: {
 		rootClass: "spectrum-Search",
 		isDisabled: false,
 		isKeyboardFocused: false,
+		showHelpText: false,
+		helpTextLabel: "Help text with a suggestion of what to search for",
 	},
 	parameters: {
 		actions: {
@@ -178,6 +197,26 @@ const Variants = (args) =>
 					${Typography({
 						semantics: "detail",
 						size: "l",
+						content: ["Default with Help Text"],
+					})}
+					<div
+						style=${styleMap({
+							display: "flex",
+							flexDirection: "column",
+							gap: ".3rem",
+						})}
+					>
+						${States({
+							...args,
+							showHelpText: true,
+							helpTextLabel: "Help text with a suggestion of what to search for"
+						})}
+					</div>
+				</div>
+				<div class="spectrum-Typography">
+					${Typography({
+						semantics: "detail",
+						size: "l",
 						content: ["Sizing"],
 					})}
 					<div
@@ -188,6 +227,26 @@ const Variants = (args) =>
 						})}
 					>
 						${Sizes(args)}
+					</div>
+				</div>
+				<div class="spectrum-Typography">
+					${Typography({
+						semantics: "detail",
+						size: "l",
+						content: ["Sizing with Help Text"],
+					})}
+					<div
+						style=${styleMap({
+							display: "flex",
+							flexDirection: "column",
+							gap: ".3rem",
+						})}
+					>
+						${Sizes({
+							...args,
+							showHelpText: true,
+							helpTextLabel: "Help text with a suggestion of what to search for"
+						})}
 					</div>
 				</div>`
 		: Template(args)}`;
