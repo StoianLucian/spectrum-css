@@ -17,13 +17,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@a4u/a4u-s2-ui-icon-global-set@npm:1.7.1":
-  version: 1.7.1
-  resolution: "@a4u/a4u-s2-ui-icon-global-set@npm:1.7.1::__archiveUrl=https%3A%2F%2Fartifactory.corp.adobe.com%2Fartifactory%2Fapi%2Fnpm%2Fnpm-a4u-release%2F%40a4u%2Fa4u-s2-ui-icon-global-set%2F-%2F%40a4u%2Fa4u-s2-ui-icon-global-set-1.7.1.tgz"
-  checksum: 10c0/98dfabd3df1f139d80b55ebc26625cf4929b9d048d2608a9bb9ce15ab8cd043892d8073939fa02d6754ff450b6da4d27e3493ba26ebb2e825ee55ec96e421435
-  languageName: node
-  linkType: hard
-
 "@aashutoshrathi/word-wrap@npm:^1.2.3":
   version: 1.2.6
   resolution: "@aashutoshrathi/word-wrap@npm:1.2.6"
@@ -20428,7 +20421,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "spectrum-css-monorepo@workspace:."
   dependencies:
-    "@a4u/a4u-s2-ui-icon-global-set": "npm:1.7.1"
     "@changesets/changelog-github": "npm:^0.5.0"
     "@changesets/cli": "npm:^2.27.1"
     "@commitlint/cli": "npm:^19.3.0"
@@ -20482,9 +20474,6 @@ __metadata:
     stylelint-use-logical: "npm:^2.1.2"
     tar: "npm:^7.0.1"
     yargs: "npm:^17.7.2"
-  dependenciesMeta:
-    "@a4u/a4u-s2-ui-icon-global-set":
-      optional: true
   languageName: unknown
   linkType: soft
 

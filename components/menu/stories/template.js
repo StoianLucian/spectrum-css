@@ -58,6 +58,7 @@ export const MenuItem = ({
       ? Icon({
           ...globals,
           iconName: "ChevronRight100",
+          setName: "ui",
           size,
           customClasses: [
             `${rootClass}Icon`,
@@ -94,6 +95,7 @@ export const MenuItem = ({
       ? Icon({
           ...globals,
           iconName: "ChevronRight100",
+					setName: "ui",
           size,
           customClasses: [
             `${rootClass}Icon`,
@@ -119,6 +121,7 @@ export const MenuItem = ({
       ? Icon({
           ...globals,
           iconName: "Checkmark100",
+          setName: "ui",
           size,
           customClasses: [
             `${rootClass}Icon`,
@@ -154,13 +157,13 @@ export const MenuItem = ({
 const backArrowWithScale = (size = "m", iconName = "ArrowLeft") => {
 	switch (size) {
 		case "s":
-			return `${iconName}200`;
+			return `${iconName}100`;
 		case "l":
-			return `${iconName}400`;
-		case "xl":
-			return `${iconName}500`;
-		default:
 			return `${iconName}300`;
+		case "xl":
+			return `${iconName}400`;
+		default:
+			return `${iconName}200`;
 	}
 };
 
@@ -193,6 +196,7 @@ export const MenuGroup = ({
             ${Icon({
               ...globals,
               iconName: backArrowWithScale(size),
+              setName: "ui",
               size,
               customClasses: ["spectrum-Menu-backIcon"]
             })}

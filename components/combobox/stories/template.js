@@ -97,7 +97,7 @@ export const Template = ({
 						... isInvalid ? ["is-invalid"] : [],
 					],
 					size,
-					iconType: "ui",
+					iconSet: "ui",
 					iconName: "ChevronDown",
 					isQuiet,
 					isOpen,

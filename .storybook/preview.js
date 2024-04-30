@@ -19,11 +19,22 @@ setConsoleOptions({
 	panelExclude: [...panelExclude, /deprecated/, /TypeError/, /postcss/, /stylelint/],
 });
 
+import workflowSprite from "@adobe/spectrum-css-workflow-icons/dist/spectrum-icons.svg?raw";
+import uiSprite from "@spectrum-css/ui-icons/dist/spectrum-css-icons.svg?raw";
+
 import "@spectrum-css/tokens";
 import "./assets/base.css";
 
 import "./assets/typekit.js";
 
+
+let spriteContainer = document.querySelector("#icon-sprite-container");
+if (!spriteContainer) {
+	spriteContainer = document.createElement("div");
+	spriteContainer.id = "icon-sprite-container";
+	spriteContainer.innerHTML = workflowSprite + uiSprite;
+	document.body.appendChild(spriteContainer);
+}
 
 // Rendered as controls; these properties are assigned
 //      to the document root element

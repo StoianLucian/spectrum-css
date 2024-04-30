@@ -32,8 +32,6 @@ export const Template = ({
 	const [, updateArgs] = useArgs();
 	const [{ lang }] = useGlobals();
 
-
-
 	return html`
 		<div
 			class=${classMap({
@@ -90,7 +88,6 @@ export const Template = ({
 				...globals,
 				customClasses: [`${rootClass}-button`],
 				size: "m",
-				iconType: "workflow",
 				iconName: "Calendar",
 				isQuiet,
 				customStyles: readOnly ? { "display": "none" } : undefined,

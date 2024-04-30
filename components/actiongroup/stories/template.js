@@ -39,6 +39,7 @@ export const Template = ({
 							...globals,
 							size,
 							iconName: item.iconName,
+							iconSet: item.iconSet ?? "ui",
 							isQuiet: areQuiet || item.isQuiet,
 							isEmphasized: areEmphasized || item.isEmphasized,
 							staticColor: staticColor ?? item.staticColor,

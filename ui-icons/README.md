@@ -28,7 +28,7 @@ CSS for the icons is available from the `@spectrum-css/icon` package. See the [I
 
 ## Updating icons
 
-Icons are available from an internal repository that is available only to Adobe employees. If you are an employee with access, you can update the icon package by globally installing the version of the package you want to use: `npm install -g --no-save @a4u/a4u-s2-ui-icon-global-set@1.7.1`. Before running the ui-icons build script, make sure you have sourced your authentication tokens manually or using the `./tasks/setup.sh` script at the root of the monorepo. You shoul have a value for your ARTIFACTORY_API_TOKEN in your root-level `.env`.
+Icons are available from an internal repository that is available only to Adobe employees. If you are an employee with access, you can update the icon package by globally installing the version of the package you want to use: `npm install -g --no-save @a4u/a4u-s2-ui-icon-global-set@1.7.1`. Before running the ui-icons build script, make sure you have sourced your authentication tokens manually with `bash ./tasks/setup.sh` script at the root of the monorepo. For this to be effective, you must have a value for the ARTIFACTORY_API_TOKEN in your root-level `.env`.
 
 Once your environment is ready, you can run `rm -rf ui-icons/dist/svg && yarn builder ui-icons`. Expect to see the updated SVG assets populate in your `ui-icons/dist/svg` folder, an updated `icons.json` that should accurately reflect what files are in the `svg` folder, and an updated `spectrum-css-icons.svg` spritesheet containing the updated content from the new assets.
 

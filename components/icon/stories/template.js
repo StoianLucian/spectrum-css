@@ -23,7 +23,7 @@ import "../index.css";
  * @param {string} props.fill
  * @param {string} props.id
  * @param {string[]} props.customClasses
- * @param {boolean} props.useRef
+ * @param {boolean} props.useRef [true]
  * @returns {import('lit').TemplateResult<1>}
  */
 export const Template = ({
@@ -34,7 +34,7 @@ export const Template = ({
 	fill,
 	id,
 	customClasses = [],
-	useRef = false,
+	useRef = true,
 	...globals
 }) => {
 	const { scale } = globals;
@@ -188,25 +188,13 @@ export const Template = ({
 			? `spectrum-css-icon-${idKey}`
 			: `spectrum-icon-${scale !== "medium" ? "24" : "18"}-${idKey}`;
 
-	try {
-		import(
-			/* webpackPrefetch: true */ "@adobe/spectrum-css-workflow-icons/dist/spectrum-icons.svg?raw"
-		);
-		import(
-			/* webpackPrefetch: true */ "@spectrum-css/ui-icons/dist/spectrum-css-icons.svg?raw"
-		);
-	}
-	catch (e) {
-		console.warn(e);
-	}
-
 	return svg`<svg
 		class=${classMap(classList)}
 		id=${ifDefined(id)}
 		style=${ifDefined(inlineStyle)}
 		focusable="false"
 		aria-hidden="true"
-		aria-labelledby=${idKey}
+		aria-label=${iconName}
 		role="img"
 	>
 		<title id=${idKey}>${idKey.replace(/([A-Z])/g, " $1").trim()}</title>

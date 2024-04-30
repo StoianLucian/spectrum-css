@@ -70,6 +70,7 @@ export const Default = (({
 			isDisabled,
 			size,
 			iconName: initialIcon,
+			iconSet: "workflow",
 			onclick:
 				onclick ??
 				function () {
