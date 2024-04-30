@@ -87,7 +87,7 @@ export default {
 		},
 		isQuiet: {
 			name: "Quiet styling",
-			description: "An alternative way to display the Picker, which has no visible background.",
+			description: "An alternative way to display the Picker without a visible background.",
 			type: { name: "boolean" },
 			table: {
 				type: { summary: "boolean" },
