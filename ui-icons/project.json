@@ -26,6 +26,8 @@
 				"{projectRoot}/dist/spectrum-css-icons.svg"
 			]
 		},
-		"clean": {}
+		"clean": {
+			"executor": "nx:noop"
+		}
 	}
 }

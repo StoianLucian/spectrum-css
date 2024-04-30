@@ -41,7 +41,9 @@ async function processSVG(filePath, destPath) {
  */
 async function copySVGs() {
 	// workflow icons: @a4u/a4u-s2-icon-global-set-open-source-processed
-	const source = require.resolve("@a4u/a4u-s2-ui-icon-global-set");
+	const source = require.resolve("@a4u/a4u-s2-ui-icon-global-set", {
+		paths: ["~/"]
+	});
 	if (!source) return Promise.resolve();
 
 	const sourcePath = path.join(path.dirname(source), "assets");

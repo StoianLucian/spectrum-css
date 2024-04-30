@@ -111,9 +111,6 @@
 		"tar": "^7.0.1",
 		"yargs": "^17.7.2"
 	},
-	"optionalDependencies": {
-		"@a4u/a4u-s2-ui-icon-global-set": "1.7.1"
-	},
 	"engines": {
 		"node": ">=20"
 	},
