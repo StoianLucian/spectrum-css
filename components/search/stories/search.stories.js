@@ -7,7 +7,7 @@ export default {
 	title: "Components/Search field",
 	description:
 		"This component contains a single input field with both a magnifying glass icon and a \"reset\" button displayed within it.",
-	component: "Search field",
+	component: "SearchField",
 	argTypes: {
 		size: {
 			name: "Size",
