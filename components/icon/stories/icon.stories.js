@@ -144,7 +144,22 @@ const TestTemplate = (args) => {
 				}
 			});
 		})}
-		${workflowIcons.slice(0, 20).map((iconName, idx) => html`
+		${[
+			...workflowIcons.slice(0, 10),
+			"Add",
+			"ArrowDown",
+			"ArrowLeft",
+			"ArrowRight",
+			"ArrowUp",
+			"Asterisk",
+			"Checkmark",
+			"ChevronDown",
+			"ChevronLeft",
+			"ChevronRight",
+			"ChevronUp",
+			"DragHandle",
+			"LinkOut",
+		].map((iconName, idx) => html`
 			${sizes.map((size) => Template({
 				...args,
 				setName: "workflow",
