@@ -333,7 +333,8 @@ governing permissions and limitations under the License.
     }
   }
 
-  &.is-loading {
+  &.spectrum-Picker.is-loading {
+    transform: none;
     .spectrum-Picker-menuIcon {
       color: var(--highcontrast-picker-content-color-disabled, var(--mod-picker-icon-color-disabled, var(--spectrum-picker-icon-color-disabled)));
     }
@@ -355,8 +356,9 @@ governing permissions and limitations under the License.
 
 /* Disabled state */
 .spectrum-Picker.spectrum-Picker:disabled,
-.spectrum-Picker.is-disabled {
+.spectrum-Picker.spectrum-Picker.is-disabled {
   cursor: default;
+  transform: none;
   background-color: var(--highcontrast-picker-background-color, var(--mod-picker-background-color-disabled, var(--spectrum-picker-background-color-disabled)));
   border-color: var(--highcontrast-picker-border-color-disabled, transparent);
   color: var(--highcontrast-picker-content-color-disabled, var(--mod-picker-font-color-disabled, var(--spectrum-picker-font-color-disabled)));
