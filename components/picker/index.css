@@ -18,6 +18,7 @@ governing permissions and limitations under the License.
   --spectrum-picker-font-weight: var(--spectrum-regular-font-weight);
   --spectrum-picker-placeholder-font-style: var(--spectrum-default-font-style);
   --spectrum-picker-line-height: var(--spectrum-line-height-100);
+  --spectrum-picker-line-height-cjk: var(--spectrum-cjk-line-height-100);
 
   /* Dimensions */
   --spectrum-picker-block-size: var(--spectrum-component-height-100);
@@ -396,7 +397,6 @@ governing permissions and limitations under the License.
     font-weight: var(--mod-picker-placeholder-font-weight, var(--spectrum-picker-font-weight));
     font-style: var(--mod-picker-placeholder-font-style, var(--spectrum-picker-placeholder-font-style));
     transition: color var(--mod-picker-animation-duration, var(--spectrum-picker-animation-duration)) ease-in-out;
-
     color: var(--highcontrast-picker-content-color-default, var(--mod-picker-font-color-default, var(--spectrum-picker-font-color-default)));
 
     &:hover {
@@ -406,6 +406,13 @@ governing permissions and limitations under the License.
     &:active {
       color: var(--highcontrast-picker-content-color-default, var(--mod-picker-font-color-active, var(--spectrum-picker-font-color-active)));
     }
+  }
+
+  /* CJK (Chinese, Japanese, and Korean) language support */
+  .spectrum-Picker:lang(ja) &,
+  .spectrum-Picker:lang(zh) &,
+  .spectrum-Picker:lang(ko) & {
+    line-height: var(--mod-picker-line-height-cjk, var(--spectrum-picker-line-height-cjk));
   }
 }
 
