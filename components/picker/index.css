@@ -33,15 +33,20 @@ governing permissions and limitations under the License.
   --spectrum-picker-spacing-top-to-text: var(--spectrum-component-top-to-text-100);
   --spectrum-picker-spacing-bottom-to-text: var(--spectrum-component-bottom-to-text-100);
   --spectrum-picker-spacing-edge-to-text: var(--spectrum-component-edge-to-text-100);
-  /* Label component to Picker component. */
+
+  /* Space from label component to Picker component. */
   --spectrum-picker-spacing-label-to-picker: var(--spectrum-field-label-to-component);
   --spectrum-picker-spacing-label-to-picker-quiet: var(--spectrum-field-label-to-component-quiet-medium);
+
   /* Space from optional starting icon to the text. */
   --spectrum-picker-spacing-starting-icon-to-text: var(--spectrum-text-to-visual-100);
+
   /* Space from text to either the disclosure icon or the alert/progress visual if present. */
   --spectrum-picker-spacing-text-to-icon-inline-end: var(--spectrum-text-to-visual-100);
+
   /* Space from alert/progress visual to the disclosure icon (chevron). */
   --spectrum-picker-spacing-icon-to-disclosure-icon: var(--spectrum-picker-visual-to-disclosure-icon-medium);
+
   --spectrum-picker-spacing-top-to-alert-icon: var(--spectrum-field-top-to-alert-icon-medium);
   --spectrum-picker-spacing-top-to-progress-circle: var(--spectrum-field-top-to-progress-circle-medium);
   --spectrum-picker-spacing-top-to-disclosure-icon: var(--spectrum-field-top-to-disclosure-icon-100);
@@ -344,6 +349,7 @@ governing permissions and limitations under the License.
 
   &.spectrum-Picker.is-loading {
     transform: none;
+
     .spectrum-Picker-menuIcon {
       color: var(--highcontrast-picker-content-color-disabled, var(--mod-picker-icon-color-disabled, var(--spectrum-picker-icon-color-disabled)));
     }
