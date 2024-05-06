@@ -47,7 +47,7 @@ governing permissions and limitations under the License.
   /* Space from alert/progress visual to the disclosure icon (chevron). */
   --spectrum-picker-spacing-icon-to-disclosure-icon: var(--spectrum-picker-visual-to-disclosure-icon-medium);
 
-  --spectrum-picker-spacing-top-to-alert-icon: var(--spectrum-field-top-to-alert-icon-medium);
+  --spectrum-picker-spacing-top-to-alert-icon: var(--spectrum-component-top-to-workflow-icon-100);
   --spectrum-picker-spacing-top-to-progress-circle: var(--spectrum-field-top-to-progress-circle-medium);
   --spectrum-picker-spacing-top-to-disclosure-icon: var(--spectrum-field-top-to-disclosure-icon-100);
   --spectrum-picker-spacing-edge-to-disclosure-icon: var(--spectrum-field-end-edge-to-disclosure-icon-100);
@@ -119,7 +119,7 @@ governing permissions and limitations under the License.
   --spectrum-picker-spacing-text-to-icon-inline-end: var(--spectrum-text-to-visual-75);
   --spectrum-picker-spacing-icon-to-disclosure-icon: var(--spectrum-picker-visual-to-disclosure-icon-small);
   --spectrum-picker-spacing-label-to-picker-quiet: var(--spectrum-field-label-to-component-quiet-small);
-  --spectrum-picker-spacing-top-to-alert-icon: var(--spectrum-field-top-to-alert-icon-small);
+  --spectrum-picker-spacing-top-to-alert-icon: var(--spectrum-component-top-to-workflow-icon-75);
   --spectrum-picker-spacing-top-to-progress-circle: var(--spectrum-field-top-to-progress-circle-small);
   --spectrum-picker-spacing-top-to-disclosure-icon: var(--spectrum-field-top-to-disclosure-icon-75);
   --spectrum-picker-spacing-edge-to-disclosure-icon: var(--spectrum-field-end-edge-to-disclosure-icon-75);
@@ -141,7 +141,7 @@ governing permissions and limitations under the License.
   --spectrum-picker-spacing-text-to-icon-inline-end: var(--spectrum-text-to-visual-200);
   --spectrum-picker-spacing-icon-to-disclosure-icon: var(--spectrum-picker-visual-to-disclosure-icon-large);
   --spectrum-picker-spacing-label-to-picker-quiet: var(--spectrum-field-label-to-component-quiet-large);
-  --spectrum-picker-spacing-top-to-alert-icon: var(--spectrum-field-top-to-alert-icon-large);
+  --spectrum-picker-spacing-top-to-alert-icon: var(--spectrum-component-top-to-workflow-icon-200);
   --spectrum-picker-spacing-top-to-progress-circle: var(--spectrum-field-top-to-progress-circle-large);
   --spectrum-picker-spacing-top-to-disclosure-icon: var(--spectrum-field-top-to-disclosure-icon-200);
   --spectrum-picker-spacing-edge-to-disclosure-icon: var(--spectrum-field-end-edge-to-disclosure-icon-200);
@@ -163,7 +163,7 @@ governing permissions and limitations under the License.
   --spectrum-picker-spacing-text-to-icon-inline-end: var(--spectrum-text-to-visual-300);
   --spectrum-picker-spacing-icon-to-disclosure-icon: var(--spectrum-picker-visual-to-disclosure-icon-extra-large);
   --spectrum-picker-spacing-label-to-picker-quiet: var(--spectrum-field-label-to-component-quiet-extra-large);
-  --spectrum-picker-spacing-top-to-alert-icon: var(--spectrum-field-top-to-alert-icon-extra-large);
+  --spectrum-picker-spacing-top-to-alert-icon: var(--spectrum-component-top-to-workflow-icon-300);
   --spectrum-picker-spacing-top-to-progress-circle: var(--spectrum-field-top-to-progress-circle-extra-large);
   --spectrum-picker-spacing-top-to-disclosure-icon: var(--spectrum-field-top-to-disclosure-icon-300);
   --spectrum-picker-spacing-edge-to-disclosure-icon: var(--spectrum-field-end-edge-to-disclosure-icon-300);
