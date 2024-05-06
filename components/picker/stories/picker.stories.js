@@ -339,6 +339,7 @@ const ChromaticPickerGroup = (args) => {
 			sectionName: "Default",
 			componentMarkup: States({
 				...args,
+				placeholder: "Select country with truncated placeholder text",
 				fieldLabelPrefix: "picker",
 			}),
 		},
@@ -347,6 +348,7 @@ const ChromaticPickerGroup = (args) => {
 			componentMarkup: States({
 				...args,
 				isInvalid: true,
+				placeholder: "Select country with truncated placeholder text",
 				helpText: "Please select a country",
 				fieldLabelPrefix: "picker-error",
 			}),
@@ -415,10 +417,19 @@ const ChromaticPickerGroup = (args) => {
 			componentMarkup: Sizing(args),
 		},
 		{
+			sectionName: "Sizing + Quiet",
+			componentMarkup: Sizing({
+				...args,
+				isQuiet: true,
+				fieldLabelPrefix: "picker-sizing-quiet",
+			}),
+		},
+		{
 			sectionName: "Sizing + Invalid",
 			componentMarkup: Sizing({
 				...args,
 				isInvalid: true,
+				placeholder: "Select country with truncated placeholder text",
 				fieldLabelPrefix: "picker-sizing-invalid",
 			}),
 		},

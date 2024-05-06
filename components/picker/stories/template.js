@@ -181,6 +181,7 @@ export const Template = ({
 					text: helpText,
 					variant: isInvalid ? "negative" : "neutral",
 					hideIcon: true,
+					isDisabled,
 				})
 			)}
 			${when(withSwitch, () =>
