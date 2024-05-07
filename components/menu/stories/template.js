@@ -52,12 +52,12 @@ const Visual = ({
         })}
     `;
 	}
+	return;
 };
 
 const StartAction = ({
 	hasActions,
 	idx,
-	isChecked,
 	isCollapsible,
 	isDisabled,
 	isSelected,
@@ -79,7 +79,7 @@ const StartAction = ({
       })}
     `;
 	}
-	else if (selectionMode === "single" && isChecked) {
+	else if (selectionMode == "single" && isSelected) {
 		return html`
     ${Icon({
       ...globals,
@@ -91,51 +91,22 @@ const StartAction = ({
       ],
     })}`;
 	}
-	else if (selectionMode === "multiple" && !hasActions) {
+	else if (selectionMode == "multiple" && !hasActions) {
 		return html`
-    ${Checkbox({
-      ...globals,
-      size,
-      isEmphasized: true,
-      isChecked: isSelected,
-      isDisabled,
-      id: `menu-checkbox-${idx}`,
-      customClasses: [
-        `${rootClass}Checkbox`,
-      ],
-    })
-  }
-    `;
-	}
-};
-
-const Value = ({
-	hasActions,
-	idx,
-	isDisabled,
-	isSelected,
-	rootClass,
-	size,
-	value,
-	...globals
-}) => html`
-  ${value ? html`<span class="${rootClass}Value">${value}</span>` : ""}
-  ${hasActions
-    ? html`<div class="${rootClass}Actions">
-    ${Switch({
+      ${Checkbox({
         ...globals,
         size,
+        isEmphasized: true,
         isChecked: isSelected,
         isDisabled,
-        label: null,
-        id: `menu-switch-${idx}`,
+        id: `menu-checkbox-${idx}`,
         customClasses: [
-          `${rootClass}Switch`,
+          `${rootClass}Checkbox`,
         ],
-      })}
-      </div>`
-    : ""}
-`;
+      })}`;
+	}
+	return null;
+};
 
 const EndAction = ({
 	hasActions,
@@ -144,13 +115,29 @@ const EndAction = ({
 	isDrillIn,
 	isSelected,
 	rootClass,
+	selectionMode,
 	size,
 	value,
 	...globals
-}) => {
-	if (isDrillIn) {
-		return html`
-    ${Icon({
+}) => html`
+${value ? html`<span class="${rootClass}Value">${value}</span>` : ""}
+${hasActions && selectionMode == "multiple"
+  ? html`<div class="${rootClass}Actions">
+  ${Switch({
+      ...globals,
+      size,
+      isChecked: isSelected,
+      isDisabled,
+      label: null,
+      id: `menu-switch-${idx}`,
+      customClasses: [
+        `${rootClass}Switch`,
+      ],
+    })}
+    </div>`
+  : ""}
+  ${
+    isDrillIn ? html`${Icon({
       ...globals,
       iconName: "ChevronRight100",
       size,
@@ -158,13 +145,9 @@ const EndAction = ({
         `${rootClass}Icon`,
         "spectrum-Menu-chevron",
       ],
-    })}
-    `;
-	}
-	else {
-		return html`${Value({hasActions, idx, isDisabled, isSelected, rootClass, size, value, ...globals})}`;
-	}
-};
+    })}` : ""
+  }
+`;
 
 const Description = ({
 	description,
@@ -178,12 +161,12 @@ export const MenuItem = ({
 	id,
 	idx = 0,
 	isActive = false,
-	isChecked = false,
 	isCollapsible = false,
 	isDisabled = false,
 	isDrillIn = false,
 	isFocused = false,
 	isHighlighted = false,
+	isHovered = false,
 	isOpen = false,
 	isSelected = false,
 	items = [],
@@ -204,6 +187,7 @@ export const MenuItem = ({
       "is-focused": isFocused,
       "is-selected": isSelected,
       "is-disabled": isDisabled,
+      "is-hover": isHovered,
       [`${rootClass}--drillIn`]: isDrillIn,
       [`${rootClass}--collapsible`]: isCollapsible,
       "is-open": isOpen,
@@ -213,11 +197,11 @@ export const MenuItem = ({
     aria-selected=${isSelected ? "true" : "false"}
     aria-disabled=${isDisabled ? "true" : "false"}
     tabindex=${ifDefined(!isDisabled ? "0" : undefined)}>
-      ${StartAction({ hasActions, idx, isCollapsible, isChecked, isDisabled, isSelected, rootClass, selectionMode, size, ...globals })}
+      ${StartAction({ hasActions, idx, isCollapsible, isDisabled, isSelected, rootClass, selectionMode, size, ...globals })}
       ${Visual({ iconName, rootClass, size, ...globals })}
       ${Label({ hasActions, isCollapsible, label, rootClass, shouldTruncate })}
       ${when(description, () => Description({ description, rootClass }))}
-      ${EndAction({ hasActions, idx, isDisabled, isDrillIn, isSelected, rootClass, size, value, ...globals })}
+      ${EndAction({ hasActions, idx, isDisabled, isDrillIn, isSelected, rootClass, selectionMode, size, value, ...globals })}
       ${isCollapsible && items.length > 0 ? Template({ ...globals, items, isOpen, size, shouldTruncate }) : ""}
   </li>
 `;
@@ -299,22 +283,29 @@ export const MenuGroup = ({
 
 
 export const Template = ({
-	rootClass = "spectrum-Menu",
-	labelledby,
 	customClasses = [],
 	customStyles = {},
-	size,
-	isDisabled = false,
-	maxInlineSize,
-	shouldTruncate,
-	selectionMode = "none",
-	isOpen = false,
-	hasActions = false,
-	isTraySubmenu = false,
-	items = [],
-	role = "menu",
-	subrole = "menuitem",
+	hasActions,
+	hasDividers = false,
 	id,
+	isDisabled = false,
+	isItemActive = false,
+	isItemFocused = false,
+	isItemHovered = false,
+	isItemSelected = false,
+	isOpen = false,
+	isTraySubmenu = false,
+	itemIcon,
+	items = [],
+	labelledby,
+	maxInlineSize,
+	role = "menu",
+	rootClass = "spectrum-Menu",
+	selectionMode = "none",
+	singleItemDescription,
+	shouldTruncate,
+	size,
+	subrole = "menuitem",
 	...globals
 }) => {
 	const menuMarkup = html`
@@ -335,12 +326,12 @@ export const Template = ({
     >
       ${items.map((i, idx) => {
         if (i.type === "divider")
-          return Divider({
+          return html`${hasDividers ? Divider({
             ...globals,
             tag: "li",
             size: "s",
             customClasses: [`${rootClass}-divider`],
-          });
+          }) : ""}`;
         else if (i.heading || i.isTraySubmenu)
           return MenuGroup({
             ...i,
@@ -355,13 +346,20 @@ export const Template = ({
           return MenuItem({
             ...globals,
             ...i,
+            description: singleItemDescription || i.description,
+            hasActions,
+            iconName: itemIcon || i.iconName,
             idx,
-            rootClass: `${rootClass}-item`,
+            isActive: isItemActive,
+            isDisabled: isDisabled || i.isDisabled,
+            isFocused: isItemFocused || i.isFocused,
+            isHovered: isItemHovered,
+            isSelected: isItemSelected || i.isSelected,
             role: subrole,
-            size,
+            rootClass: `${rootClass}-item`,
             selectionMode,
             shouldTruncate,
-            hasActions,
+            size,
           });
       })}
     </ul>
