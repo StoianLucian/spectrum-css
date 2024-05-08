@@ -7,7 +7,6 @@ export default {
 	title: "Components/Thumbnail",
 	component: "Thumbnail",
 	argTypes: {
-		reduceMotion: { table: { disable: true } },
 		size: {
 			name: "Size",
 			type: { name: "string", required: true },

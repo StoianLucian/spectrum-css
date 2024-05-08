@@ -201,22 +201,20 @@ export default {
 
 const TextFieldGroup = (args) => html`
 	<div style="display: flex; flex-direction: column; gap: 32px;">
-		${Template({
-			...args
-		})}
+		${Template(args)}
 		${window.isChromatic() ?
 			Template({
 				displayLabel: true,
 				labelText: "Username",
 			})
-			: html`` }
+			: "" }
 		${window.isChromatic() ?
 			Template({
 				displayLabel: true,
 				labelText: "Username that is really long and wraps onto a second line",
 				isInvalid: true,
 			})
-			: html`` }
+			: "" }
 		${window.isChromatic() ?
 			Template({
 				displayLabel: true,
@@ -225,7 +223,7 @@ const TextFieldGroup = (args) => html`
 				isValid: true,
 				value: "username@reallylongemail.com"
 			})
-			: html`` }
+			: "" }
 	</div>
 `;
 

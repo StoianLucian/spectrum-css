@@ -1,4 +1,8 @@
 import { html } from "lit";
+import { when } from "lit/directives/when.js";
+
+import { withPreviewStyles } from "@spectrum-css/preview/decorators";
+
 import { Template } from "./template";
 
 import { default as IconStories } from "@spectrum-css/icon/stories/icon.stories.js";
@@ -66,7 +70,12 @@ export default {
 		variant: "neutral",
 		iconName: "Info",
 		label: "Badge",
-		fixed: "none"
+		fixed: "none",
+		customStorybookStyles: {
+			"display": "flex",
+			"align-items": "center",
+			"gap": "4px",
+		},
 	},
 	parameters: {
 		actions: {
@@ -77,7 +86,7 @@ export default {
 		},
 	},
 	decorators: [
-		(Story, context) => html`<div style="padding: 16px">${Story(context)}</div>`
+		withPreviewStyles,
 	],
 };
 
@@ -91,11 +100,11 @@ const BadgeGroup = (args) => html`
 		...args,
 		label: undefined,
 	})}
-	${Template({
+	${when(window.isChromatic(), () => Template({
 		...args,
 		label: "24 days left in trial",
 		customStyles: { "max-inline-size": "100px" },
-	})}
+	}))}
 `;
 
 export const Default = BadgeGroup.bind({});
