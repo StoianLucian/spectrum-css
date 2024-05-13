@@ -421,7 +421,8 @@ governing permissions and limitations under the License.
 }
 
 .spectrum-Menu-item:focus-visible,
-.spectrum-Menu-back:focus-visible {
+.spectrum-Menu-back:focus-visible,
+.spectrum-Menu-item.is-focused {
 	box-shadow: inset calc(var(--mod-menu-item-focus-indicator-width, var(--spectrum-menu-item-focus-indicator-width)) * var(--spectrum-menu-item-focus-indicator-direction-scalar, 1)) 0 0 0 var(--highcontrast-menu-item-focus-indicator-color, var(--mod-menu-item-focus-indicator-color, var(--spectrum-menu-item-focus-indicator-color)));
 }
 
