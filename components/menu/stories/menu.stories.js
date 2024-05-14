@@ -127,8 +127,8 @@ export default {
 	],
 };
 
-const ChromaticDefaultMenu = (args) => {
-	const defaultMenuData = [
+const ChromaticMenuWithVariants = (args) => {
+	const menuData = [
 		{
 			stateTitle: "No selection",
 			args: { ...args, selectionMode: "none" },
@@ -146,7 +146,7 @@ const ChromaticDefaultMenu = (args) => {
 			args: { ...args, selectionMode: "multiple" },
 		},
 	];
-	return defaultMenuData.map((item) => html`
+	return menuData.map((item) => html`
 	<div class="spectrum-Typography">
 		${Typography({
 			semantics: "detail",
@@ -161,9 +161,9 @@ const ChromaticDefaultMenu = (args) => {
 `);
 };
 
-export const Default = (args) => window.isChromatic() ?
-	ChromaticDefaultMenu(args) : Template(args);
-Default.args = {
+export const MenuWithVariants = (args) => window.isChromatic() ?
+	ChromaticMenuWithVariants(args) : Template(args);
+MenuWithVariants.args = {
 	role: "listbox",
 	subrole: "option",
 	customStyles: { maxWidth: "400px" },
@@ -625,4 +625,19 @@ MenuItemOnly.argTypes = {
 		control: "text",
 		if: { arg: "hasItemDescription", truthy: true },
 	},
+};
+
+export const Default = Template.bind({});
+Default.storyName = "Standard with Dividers";
+Default.args = {
+	items: [
+		{ label: "Deselect" },
+		{ label: "Select inverse" },
+		{ label: "Feather" },
+		{ label: "Select and mask" },
+		{ type: "divider" },
+		{ label: "Save selection" },
+		{ label: "Make work path", isDisabled: true },
+	],
+	hasDividers: true,
 };
